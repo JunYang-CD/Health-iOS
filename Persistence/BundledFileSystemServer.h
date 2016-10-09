@@ -1,5 +1,5 @@
 //
-//  ApiRequest.h
+//  BundledFileSystemServer.h
 //  Persistence
 //
 //  Created by Jerry Yang on 10/8/16.
@@ -7,8 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "RecipeManager.h"
+#import "PSServer.h"
 
-@interface ApiRequest : NSObject <RecipeFetcher>
+@interface BundledFileSystemServer : NSObject <PSServer>
 
 @end

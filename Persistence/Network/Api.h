@@ -8,7 +8,6 @@
 
 #import <Foundation/Foundation.h>
 
-@interface Api : NSObject
 
 extern NSString *const RecipeApiHost;
 
@@ -17,4 +16,3 @@ extern NSString *const RecipeListByCategory;
 extern NSString *const RecipeByName;
 extern NSString *const RecipeByID;
 
-@end

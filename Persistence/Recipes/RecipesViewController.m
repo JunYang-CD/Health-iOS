@@ -9,6 +9,7 @@
 #import "RecipesViewController.h"
 #import "RecipeCellView.h"
 #import "RecipeCellViewModel.h"
+#import "RecipeModel.h"
 
 
 @interface RecipesViewController ()
@@ -22,6 +23,13 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     [self setup];
+//    [[RecipeModel instance] getByID:@"1"];
+//    [[RecipeModel instance] getByName:@"豆腐"];
+//    [[RecipeModel instance] getCategories];
+    [[RecipeModel instance] getListByCategory:@"1"];
+    
+
+
 }
 
 - (void)didReceiveMemoryWarning {
@@ -46,7 +54,8 @@
         cell = [tableView dequeueReusableCellWithIdentifier:@"recipeCell"];
     }
     
-    RecipeCellViewModel *recipeCellViewModel = [RecipeCellViewModel recipeCellViewModelWithNameImage:[NSString stringWithFormat:@"%d", indexPath.row] imageUrl:nil];
+    
+    RecipeCellViewModel *recipeCellViewModel = [RecipeCellViewModel recipeCellViewModelWithNameImage:[NSString stringWithFormat:@"%d", (int)indexPath.row] imageUrl:nil];
     [cell setData:recipeCellViewModel];
     
     return cell;
