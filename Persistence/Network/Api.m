@@ -9,6 +9,7 @@
 #import "Api.h"
 
 NSString *const RecipeApiHost = @"http://www.tngou.net/api/";
+NSString *const RecipeImagePrefix=@"http://tnfs.tngou.net/image";
 
 NSString *const RecipeCategories = @"http://www.tngou.net/api/cook/classify";
 NSString *const RecipeListByCategory = @"http://www.tngou.net/api/cook/list";

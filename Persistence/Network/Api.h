@@ -10,6 +10,7 @@
 
 
 extern NSString *const RecipeApiHost;
+extern NSString *const RecipeImagePrefix;
 
 extern NSString *const RecipeCategories;
 extern NSString *const RecipeListByCategory;

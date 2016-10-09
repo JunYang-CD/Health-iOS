@@ -12,13 +12,15 @@
 
 +(instancetype) recipeCellViewModelWithNameImage:(NSString*) name imageUrl:(NSString*) imageUrl{
     RecipeCellViewModel* instance = [RecipeCellViewModel new];
-    [instance initWithNameImage:name imageUrl:imageUrl];
+    instance->_name = name;
+    instance->_imageUrl = imageUrl;
+
     return instance;
     
 }
 
--(void)initWithNameImage:(NSString*) name imageUrl:(NSString*) imageUrl{
-    _name = name;
-    _imageUrl = imageUrl;
+-(instancetype)initWithFoods:(NSString *)foods{
+    _foods = foods;
+    return self;
 }
 @end

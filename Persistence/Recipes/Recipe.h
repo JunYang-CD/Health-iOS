@@ -7,8 +7,9 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <Mantle/Mantle.h>
 
-@interface Recipe : NSObject
+@interface Recipe : MTLModel<MTLJSONSerializing>
 
 @property (nonatomic, readonly) NSString* name;
 @property (nonatomic, readonly) NSString* imageUrl;
@@ -17,5 +18,10 @@
 @property (nonatomic, readonly) NSString* keywords;
 @property (nonatomic, readonly) NSString* ID;
 
+
+@end
+
+@interface RecipeResponseModel : MTLModel<MTLJSONSerializing>
+@property (nonatomic, readonly) NSArray<Recipe *> *recipes;
 
 @end

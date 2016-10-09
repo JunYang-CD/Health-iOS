@@ -14,7 +14,6 @@
 
 @interface RecipesViewController ()
 @property (weak, nonatomic) IBOutlet UITableView *recipeTable;
-
 @end
 
 @implementation RecipesViewController
@@ -24,8 +23,8 @@
     // Do any additional setup after loading the view.
     [self setup];
 //    [[RecipeModel instance] getByID:@"1"];
-//    [[RecipeModel instance] getByName:@"豆腐"];
-    [[RecipeModel instance] getCategories:@"10"];
+    [[RecipeModel instance] getByName:@"水煮肉片"];
+//    [[RecipeModel instance] getCategories:@"10"];
 //    [[RecipeModel instance] getListByCategory:@"1"];
     
 
@@ -40,10 +39,22 @@
 - (void)setup{
     _recipeTable.dataSource = self;
     _recipeTable.delegate = self;
+    [self registerObserver];
+}
+
+
+
+- (void)registerObserver{
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshRecipes) name:RecipeModelRecipeListUpdate object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshRecipes) name:RecipeModelRecipeUpdate object:nil];
+}
+
+- (void)refreshRecipes{
+    [_recipeTable reloadData];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 10;
+    return [[RecipeModel instance].recipes.recipes count];
 }
 
 
@@ -54,15 +65,16 @@
         cell = [tableView dequeueReusableCellWithIdentifier:@"recipeCell"];
     }
     
-    
-    RecipeCellViewModel *recipeCellViewModel = [RecipeCellViewModel recipeCellViewModelWithNameImage:[NSString stringWithFormat:@"%d", (int)indexPath.row] imageUrl:nil];
+    NSArray *test =  [RecipeModel instance].recipes.recipes;
+    Recipe* recipe = [test objectAtIndex:indexPath.row];
+    RecipeCellViewModel *recipeCellViewModel = [[RecipeCellViewModel recipeCellViewModelWithNameImage:[NSString stringWithFormat:@"%@", recipe.name] imageUrl:recipe.imageUrl] initWithFoods:recipe.foods];
     [cell setData:recipeCellViewModel];
     
     return cell;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return 50.0;
+    return 80.0;
 }
 
 

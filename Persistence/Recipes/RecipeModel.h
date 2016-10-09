@@ -7,8 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
-@protocol PSServer;
-
+#import "Recipe.h"
+#import "RecipeCategory.h"
 
 @protocol RecipeFetcher
 
@@ -19,12 +19,22 @@
 
 @end
 
+
+extern NSString *const RecipeModelRecipeUpdate;
+extern NSString *const RecipeModelRecipeListUpdate;
+extern NSString *const RecipeModelRecipeCategoryUpdate;
+
+@protocol PSServer;
+
 @interface RecipeModel : NSObject
 
 
 +(instancetype) instance;
 
 @property (nonatomic) id<PSServer> psServer;
+@property (nonatomic, readonly) Recipe* recipe;
+@property (nonatomic, readonly) RecipeResponseModel * recipes;
+@property (nonatomic, readonly) RecipeCategoryResponseModel *recipeCategories;
 
 -(void) getCategories: (NSString*) categoryID;
 -(void) getListByCategory: (NSString*) categoryID;

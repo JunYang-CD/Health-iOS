@@ -7,23 +7,27 @@
 //
 
 #import "RecipeCellView.h"
+#import <SDWebImage/UIImageView+WebCache.h>
+
 
 @interface RecipeCellView()
 @property (weak, nonatomic) IBOutlet UIImageView *image;
-@property (weak, nonatomic) IBOutlet UITextField *name;
+@property (weak, nonatomic) IBOutlet UILabel *foods;
+@property (weak, nonatomic) IBOutlet UILabel *name;
 
 @end
 
 @implementation RecipeCellView
 
--(void) setRecipe:(NSString*)name imageUrl:(NSString*)imageUrl{
-    self.name.text = name;
-    self.image.image = [UIImage imageNamed:@"first"];
+-(void) setData:(RecipeCellViewModel *)model{
+    self.foods.text = model.foods;
+    self.name.text = model.name;
+    
+    
+    [self.image sd_setImageWithURL:[NSURL URLWithString:model.imageUrl]
+                 placeholderImage:[UIImage imageNamed:@"first"]];
+
 }
 
--(void) setData:(RecipeCellViewModel *)model{
-    self.name.text = model.name;
-    self.image.image = [UIImage imageNamed:@"first"];
-}
 
 @end

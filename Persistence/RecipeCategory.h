@@ -7,9 +7,17 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <Mantle/Mantle.h>
 
-@interface RecipeCategory : NSObject
+@interface RecipeCategory : MTLModel<MTLJSONSerializing>
 @property (nonatomic,readonly) NSString* ID;
 @property (nonatomic,readonly) NSString* cookclass; //0 is top level
 @property (nonatomic,readonly) NSString* name;
+@end
+
+
+@interface RecipeCategoryResponseModel : MTLModel<MTLJSONSerializing>
+
+@property (nonatomic, readonly) NSArray<RecipeCategory *> *recipeCategories;
+
 @end

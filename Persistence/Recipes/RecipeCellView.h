@@ -11,7 +11,6 @@
 
 @interface RecipeCellView: UITableViewCell
 
-- (void) setRecipe:(NSString*)name imageUrl:(NSString*)imageUrl;
 - (void) setData: (RecipeCellViewModel*) model;
 
 @end

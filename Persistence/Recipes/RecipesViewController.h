@@ -9,5 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface RecipesViewController : UIViewController<UITableViewDelegate, UITableViewDataSource>
-
+- (void)refreshRecipes;
 @end
