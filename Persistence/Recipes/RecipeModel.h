@@ -12,7 +12,7 @@
 
 @protocol RecipeFetcher
 
--(BOOL) getRecipeCategories: (void (^)(NSDictionary *data))successBlock withError: (void (^)(NSError *error))errorBlock;
+-(BOOL) getRecipeCategories: (NSString*)categoryID withSuccess:(void (^)(NSDictionary *data))successBlock withError: (void (^)(NSError *error))errorBlock;
 -(BOOL) getRecipeListByCategory: (NSString*)categoryID withSuccess: (void (^)(NSDictionary *data))successBlock withError: (void (^)(NSError *error))errorBlock;
 -(BOOL) getRecipeByName: (NSString*) recipeName withSuccess: (void (^)(NSDictionary *data))successBlock withError: (void (^)(NSError *error))errorBlock;
 -(BOOL) getRecipeByID: (NSString*)recipeID withSuccess: (void (^)(NSDictionary *data))successBlock withError: (void (^)(NSError *error))errorBlock;
@@ -26,7 +26,7 @@
 
 @property (nonatomic) id<PSServer> psServer;
 
--(void) getCategories;
+-(void) getCategories: (NSString*) categoryID;
 -(void) getListByCategory: (NSString*) categoryID;
 -(void) getByName: (NSString*) name;
 -(void) getByID: (NSString*) ID;

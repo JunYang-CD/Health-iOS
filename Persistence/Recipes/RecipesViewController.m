@@ -25,8 +25,8 @@
     [self setup];
 //    [[RecipeModel instance] getByID:@"1"];
 //    [[RecipeModel instance] getByName:@"豆腐"];
-//    [[RecipeModel instance] getCategories];
-    [[RecipeModel instance] getListByCategory:@"1"];
+    [[RecipeModel instance] getCategories:@"10"];
+//    [[RecipeModel instance] getListByCategory:@"1"];
     
 
 

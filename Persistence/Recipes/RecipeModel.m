@@ -37,8 +37,8 @@
     
 }
 
--(void)getCategories{
-    [self.psServer getRecipeCategories:^(NSDictionary *data) {
+-(void)getCategories:(NSString*)categoryID{
+    [self.psServer getRecipeCategories:categoryID withSuccess:^(NSDictionary *data) {
         NSLog(@"%@", data[@"tngou"][0][@"keywords"]);
     } withError:^(NSError *error) {
         

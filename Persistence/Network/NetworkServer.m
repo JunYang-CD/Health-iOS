@@ -32,14 +32,12 @@
 }
 
 -(BOOL)getRecipeByID:(NSString *)recipeID withSuccess: (void (^)(NSDictionary *data))successBlock withError: (void (^)(NSError *error))errorBlock{
-//    NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
-//    AFURLSessionManager *manager = [[AFURLSessionManager alloc] initWithSessionConfiguration:configuration];
     NSMutableString *api = [NSMutableString stringWithString:RecipeByID];
     NSString *parameter = [NSString stringWithFormat:@"?id=%@", recipeID];
     [api appendString:parameter];
     
-    NSURL *URL = [NSURL URLWithString:api];
-    NSURLRequest *request = [NSURLRequest requestWithURL:URL];
+    NSURL *url = [NSURL URLWithString:api];
+    NSURLRequest *request = [NSURLRequest requestWithURL:url];
     
     NSURLSessionDataTask *dataTask = [self.manager dataTaskWithRequest:request completionHandler:^(NSURLResponse *response, id responseObject, NSError *error) {
         if (error) {
@@ -61,7 +59,7 @@
     
     [api appendString:parameter];
     api = [api stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-   
+    
     NSURL *url = [NSURL URLWithString:api];
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
     
@@ -79,8 +77,11 @@
     return true;
 }
 
--(BOOL)getRecipeCategories: (void (^)(NSDictionary *data))successBlock withError: (void (^)(NSError *error))errorBlock{
+-(BOOL)getRecipeCategories: (NSString*)categoryID withSuccess:(void (^)(NSDictionary *data))successBlock withError: (void (^)(NSError *error))errorBlock{
     NSMutableString *api = [NSMutableString stringWithString:RecipeCategories];
+    NSString *parameter = [NSString stringWithFormat:@"?id=%@", categoryID];
+    [api appendString:parameter];
+    
     NSURL *url = [NSURL URLWithString:api];
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
     
@@ -103,8 +104,8 @@
     NSString *parameter = [NSString stringWithFormat:@"?id=%@", categoryID];
     [api appendString:parameter];
     
-    NSURL *URL = [NSURL URLWithString:api];
-    NSURLRequest *request = [NSURLRequest requestWithURL:URL];
+    NSURL *url = [NSURL URLWithString:api];
+    NSURLRequest *request = [NSURLRequest requestWithURL:url];
     
     NSURLSessionDataTask *dataTask = [self.manager dataTaskWithRequest:request completionHandler:^(NSURLResponse *response, id responseObject, NSError *error) {
         if (error) {

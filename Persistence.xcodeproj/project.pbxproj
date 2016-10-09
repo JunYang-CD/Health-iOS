@@ -30,6 +30,7 @@
 		C4D254C51DA8C85000DEE567 /* NetworkServer.m in Sources */ = {isa = PBXBuildFile; fileRef = C4D254C31DA8C85000DEE567 /* NetworkServer.m */; };
 		C4D254C81DA8D57500DEE567 /* BundledFileSystemServer.m in Sources */ = {isa = PBXBuildFile; fileRef = C4D254C71DA8D57500DEE567 /* BundledFileSystemServer.m */; };
 		C4D254CF1DA8E0BA00DEE567 /* PSServerRegistry.m in Sources */ = {isa = PBXBuildFile; fileRef = C4D254CE1DA8E0BA00DEE567 /* PSServerRegistry.m */; };
+		C4D254D21DA9E4A400DEE567 /* RecipeCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = C4D254D11DA9E4A400DEE567 /* RecipeCategory.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -96,6 +97,8 @@
 		C4D254CC1DA8D62800DEE567 /* PSServer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PSServer.h; sourceTree = "<group>"; };
 		C4D254CD1DA8E0BA00DEE567 /* PSServerRegistry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSServerRegistry.h; sourceTree = "<group>"; };
 		C4D254CE1DA8E0BA00DEE567 /* PSServerRegistry.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSServerRegistry.m; sourceTree = "<group>"; };
+		C4D254D01DA9E4A400DEE567 /* RecipeCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecipeCategory.h; sourceTree = "<group>"; };
+		C4D254D11DA9E4A400DEE567 /* RecipeCategory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecipeCategory.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -236,6 +239,8 @@
 				C4D254B71DA8C81D00DEE567 /* RecipeModel.m */,
 				C4D254B81DA8C81D00DEE567 /* RecipesViewController.h */,
 				C4D254B91DA8C81D00DEE567 /* RecipesViewController.m */,
+				C4D254D01DA9E4A400DEE567 /* RecipeCategory.h */,
+				C4D254D11DA9E4A400DEE567 /* RecipeCategory.m */,
 			);
 			name = Recipes;
 			sourceTree = "<group>";
@@ -443,6 +448,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C4D254C81DA8D57500DEE567 /* BundledFileSystemServer.m in Sources */,
+				C4D254D21DA9E4A400DEE567 /* RecipeCategory.m in Sources */,
 				C4D254AE1DA8C7DA00DEE567 /* UIColor+PS.m in Sources */,
 				C4D254BA1DA8C81D00DEE567 /* Recipe.m in Sources */,
 				C4D254BE1DA8C81D00DEE567 /* RecipesViewController.m in Sources */,
