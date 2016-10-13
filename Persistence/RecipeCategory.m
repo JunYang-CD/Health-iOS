@@ -10,6 +10,15 @@
 
 @implementation RecipeCategory
 
+- (instancetype)init
+{
+    self = [super init];
+    if (self) {
+        _checked = false;
+    }
+    return self;
+}
+
 +(NSDictionary *) JSONKeyPathsByPropertyKey{
     return
     @{
@@ -18,6 +27,7 @@
       @"name":@"name"
       };
 }
+
 
 @end
 

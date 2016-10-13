@@ -119,11 +119,14 @@
         [tableView registerNib:[UINib nibWithNibName:@"RecipeCategoryItem" bundle:nil] forCellReuseIdentifier:@"recipeCategoryCell"];
         cell = [tableView dequeueReusableCellWithIdentifier:@"recipeCategoryCell"];
     }
-    
-    [cell setData: [[self.categoryViewModel.categories objectAtIndex:indexPath.section].subCategories objectAtIndex:indexPath.row].name];
+    RecipeCategory *recipeCategory = [[self.categoryViewModel.categories objectAtIndex:indexPath.section].subCategories objectAtIndex:indexPath.row];
+    [cell setData: recipeCategory];
     return cell;
 }
 
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+//    [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+}
 /*
 // Override to support conditional editing of the table view.
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {

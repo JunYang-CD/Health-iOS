@@ -13,6 +13,7 @@
 @property (nonatomic,readonly) NSString* ID;
 @property (nonatomic,readonly) NSString* cookclass; //0 is top level
 @property (nonatomic,readonly) NSString* name;
+@property (nonatomic) BOOL checked;
 @end
 
 

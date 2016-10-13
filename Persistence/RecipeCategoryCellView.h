@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "RecipeCategory.h"
 
 @interface RecipeCategoryCellView : UITableViewCell
--(void)setData:(NSString *)category;
+-(void)setData:(RecipeCategory *)category;
 @end

@@ -10,6 +10,8 @@
 
 @interface RecipeCategoryCellView()
 @property (weak, nonatomic) IBOutlet UILabel *recipeCategoryLabel;
+@property (weak, nonatomic) IBOutlet UIImageView *checkImage;
+@property (nonatomic, readonly) RecipeCategory* category;
 
 @end
 
@@ -24,10 +26,15 @@
     [super setSelected:selected animated:animated];
     
     // Configure the view for the selected state
+    if(selected){
+        _category.checked = !_category.checked;
+    }
+    _checkImage.hidden = !_category.checked;
 }
 
-- (void)setData:(NSString *)categoryName{
-    _recipeCategoryLabel.text = categoryName;
+- (void)setData:(RecipeCategory *)category {
+    _category = category;
+    _recipeCategoryLabel.text = category.name;
 }
 
 @end
