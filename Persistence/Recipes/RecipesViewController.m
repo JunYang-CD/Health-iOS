@@ -13,6 +13,7 @@
 
 
 @interface RecipesViewController ()
+@property (nonatomic, readonly)  NSArray<Recipe *> *recipes;;
 @property (weak, nonatomic) IBOutlet UITableView *recipeTable;
 @end
 
@@ -45,16 +46,19 @@
 
 
 - (void)registerObserver{
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshRecipes) name:RecipeModelRecipeListUpdate object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshRecipes) name:RecipeModelRecipeUpdate object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshRecipes:) name:RecipeModelRecipeListUpdate object:nil];
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshRecipes) name:RecipeModelRecipeUpdate object:nil];
 }
 
-- (void)refreshRecipes{
-    [_recipeTable reloadData];
+- (void)refreshRecipes: (NSNotification *) notification{
+    _recipes = notification.userInfo[@"recipeObj"];
+    if(self.recipes){
+        [_recipeTable reloadData];
+    }
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return [[RecipeModel instance].recipes.recipes count];
+    return [self.recipes count];
 }
 
 
@@ -65,8 +69,7 @@
         cell = [tableView dequeueReusableCellWithIdentifier:@"recipeCell"];
     }
     
-    NSArray *test =  [RecipeModel instance].recipes.recipes;
-    Recipe* recipe = [test objectAtIndex:indexPath.row];
+    Recipe* recipe = [self.recipes objectAtIndex:indexPath.row];
     RecipeCellViewModel *recipeCellViewModel = [[RecipeCellViewModel recipeCellViewModelWithNameImage:[NSString stringWithFormat:@"%@", recipe.name] imageUrl:recipe.imageUrl] initWithFoods:recipe.foods];
     [cell setData:recipeCellViewModel];
     
@@ -76,7 +79,6 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     return 80.0;
 }
-
 
 
 

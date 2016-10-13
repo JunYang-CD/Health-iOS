@@ -14,6 +14,7 @@
 NSString *const RecipeModelRecipeUpdate = @"RecipeModelRecipeUpdate";
 NSString *const RecipeModelRecipeListUpdate = @"RecipeModelRecipeListUpdate";
 NSString *const RecipeModelRecipeCategoryUpdate = @"RecipeModelRecipeCategoryUpdate";
+NSString *const RecipeModelRecipeSubCategoryUpdate = @"RecipeModelRecipeSubCategoryUpdate";
 
 +(instancetype)instance{
     static RecipeModel *_instance = nil;
@@ -30,8 +31,8 @@ NSString *const RecipeModelRecipeCategoryUpdate = @"RecipeModelRecipeCategoryUpd
     [self.psServer getRecipeByID: ID withSuccess:^(NSDictionary* data){
         NSLog(@"%@", data[@"description"]);
         NSError *error;
-        _recipe = [MTLJSONAdapter modelOfClass:Recipe.class fromJSONDictionary:data error:&error];
-        [[NSNotificationCenter defaultCenter] postNotificationName:RecipeModelRecipeUpdate object:self];
+        Recipe *recipe = [MTLJSONAdapter modelOfClass:Recipe.class fromJSONDictionary:data error:&error];
+        [[NSNotificationCenter defaultCenter] postNotificationName:RecipeModelRecipeUpdate object:self userInfo:@{@"recipeID": ID, @"recipeObj": recipe}];
         
     } withError:^(NSError* error){}];
     
@@ -41,8 +42,8 @@ NSString *const RecipeModelRecipeCategoryUpdate = @"RecipeModelRecipeCategoryUpd
     [self.psServer getRecipeByName:name withSuccess:^(NSDictionary* data){
         NSLog(@"%@", data[@"tngou"][0][@"food"]);
         NSError *error;
-        _recipes = [MTLJSONAdapter modelOfClass:RecipeResponseModel.class fromJSONDictionary: data error:&error];
-        [[NSNotificationCenter defaultCenter] postNotificationName:RecipeModelRecipeListUpdate object:self];
+        RecipeResponseModel *recipes = [MTLJSONAdapter modelOfClass:RecipeResponseModel.class fromJSONDictionary: data error:&error];
+        [[NSNotificationCenter defaultCenter] postNotificationName:RecipeModelRecipeListUpdate object:self userInfo:@{@"recipeName": name, @"recipeObj": recipes.recipes}];
         
     } withError:^(NSError* error){}];
     
@@ -52,8 +53,19 @@ NSString *const RecipeModelRecipeCategoryUpdate = @"RecipeModelRecipeCategoryUpd
     [self.psServer getRecipeCategories:categoryID withSuccess:^(NSDictionary *data) {
         NSLog(@"%@", data[@"tngou"][0][@"keywords"]);
         NSError *error;
-        _recipeCategories = [MTLJSONAdapter modelOfClass:RecipeCategoryResponseModel.class fromJSONDictionary:data error:&error];
-        [[NSNotificationCenter defaultCenter] postNotificationName:RecipeModelRecipeCategoryUpdate object:self];
+        @synchronized (self) {
+            NSString* ID = nil;
+            NSString* notificatioName = nil;
+            if(!categoryID){
+                ID = @"-1";
+                notificatioName = RecipeModelRecipeCategoryUpdate;
+            }else{
+                ID = categoryID;
+                notificatioName = RecipeModelRecipeSubCategoryUpdate;
+            }
+            RecipeCategoryResponseModel *recipeCategories = [MTLJSONAdapter modelOfClass:RecipeCategoryResponseModel.class fromJSONDictionary:data error:&error];
+            [[NSNotificationCenter defaultCenter] postNotificationName:notificatioName object:self userInfo:@{@"categoryID": ID, @"categoryObj": recipeCategories.recipeCategories}];
+        }
         
     } withError:^(NSError *error) {}];
 }
@@ -62,8 +74,15 @@ NSString *const RecipeModelRecipeCategoryUpdate = @"RecipeModelRecipeCategoryUpd
     [self. psServer getRecipeListByCategory:categoryID withSuccess:^(NSDictionary *data) {
         NSLog(@"%@", data[@"tngou"][0][@"keywords"]);
         NSError *error;
-        _recipes = [MTLJSONAdapter modelOfClass:RecipeResponseModel.class fromJSONDictionary: data error:&error];
-        [[NSNotificationCenter defaultCenter] postNotificationName:RecipeModelRecipeListUpdate object:self];
+        RecipeResponseModel *recipes = [MTLJSONAdapter modelOfClass:RecipeResponseModel.class fromJSONDictionary: data error:&error];
+        NSString* ID = nil;
+        NSString* notificatioName = nil;
+        if(!categoryID){
+            ID = @"-1";
+        }else{
+            ID = categoryID;
+        }
+        [[NSNotificationCenter defaultCenter] postNotificationName:RecipeModelRecipeListUpdate object:self userInfo:@{@"categoryID": ID, @"categoryObj": recipes.recipes}];
         
     } withError:^(NSError *error) {}];
     

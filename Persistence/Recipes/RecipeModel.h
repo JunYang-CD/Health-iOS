@@ -23,6 +23,7 @@
 extern NSString *const RecipeModelRecipeUpdate;
 extern NSString *const RecipeModelRecipeListUpdate;
 extern NSString *const RecipeModelRecipeCategoryUpdate;
+extern NSString *const RecipeModelRecipeSubCategoryUpdate;
 
 @protocol PSServer;
 
@@ -32,9 +33,7 @@ extern NSString *const RecipeModelRecipeCategoryUpdate;
 +(instancetype) instance;
 
 @property (nonatomic) id<PSServer> psServer;
-@property (nonatomic, readonly) Recipe* recipe;
-@property (nonatomic, readonly) RecipeResponseModel * recipes;
-@property (nonatomic, readonly) RecipeCategoryResponseModel *recipeCategories;
+//@property (nonatomic, readonly) Recipe* recipe;
 
 -(void) getCategories: (NSString*) categoryID;
 -(void) getListByCategory: (NSString*) categoryID;

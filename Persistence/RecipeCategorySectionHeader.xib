@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10116" systemVersion="15G1004" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="Vv7-aw-E3S" customClass="RecipeCategorySectionHeaderView">
+            <rect key="frame" x="0.0" y="0.0" width="486" height="112"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ihi-xr-hhR">
+                    <rect key="frame" x="8" y="0.0" width="338" height="111"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SRC-k3-j1Y">
+                    <rect key="frame" x="366" y="-1" width="112" height="112"/>
+                    <constraints>
+                        <constraint firstAttribute="width" secondItem="SRC-k3-j1Y" secondAttribute="height" multiplier="1:1" id="IgS-7C-SCc"/>
+                    </constraints>
+                    <state key="normal" title="Button" image="Arrow"/>
+                    <connections>
+                        <action selector="toggleSectionHeader:" destination="Vv7-aw-E3S" eventType="touchUpInside" id="B0p-qA-pbA"/>
+                    </connections>
+                </button>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yY2-zb-F9m">
+                    <rect key="frame" x="-78" y="112" width="486" height="0.0"/>
+                    <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="1" id="kB9-Z8-JFB"/>
+                    </constraints>
+                </imageView>
+            </subviews>
+            <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="0.56352370689655173" colorSpace="calibratedRGB"/>
+            <constraints>
+                <constraint firstAttribute="bottom" secondItem="Ihi-xr-hhR" secondAttribute="bottom" constant="1" id="CxN-Mx-bKT"/>
+                <constraint firstItem="yY2-zb-F9m" firstAttribute="width" secondItem="Vv7-aw-E3S" secondAttribute="width" id="DIp-qY-dUp"/>
+                <constraint firstAttribute="trailing" secondItem="SRC-k3-j1Y" secondAttribute="trailing" constant="8" id="Dda-ry-VDh"/>
+                <constraint firstItem="Ihi-xr-hhR" firstAttribute="centerY" secondItem="SRC-k3-j1Y" secondAttribute="centerY" id="P5D-ST-o6d"/>
+                <constraint firstAttribute="bottom" secondItem="SRC-k3-j1Y" secondAttribute="bottom" constant="1" id="UA1-4x-ieo"/>
+                <constraint firstItem="yY2-zb-F9m" firstAttribute="width" secondItem="Vv7-aw-E3S" secondAttribute="width" id="UOM-bL-BoY"/>
+                <constraint firstAttribute="bottom" secondItem="yY2-zb-F9m" secondAttribute="bottom" id="c32-nA-so0"/>
+                <constraint firstItem="Ihi-xr-hhR" firstAttribute="leading" secondItem="Vv7-aw-E3S" secondAttribute="leadingMargin" id="cKb-Ul-5pt"/>
+                <constraint firstItem="Ihi-xr-hhR" firstAttribute="top" secondItem="Vv7-aw-E3S" secondAttribute="top" id="mXX-al-QgU"/>
+                <constraint firstItem="SRC-k3-j1Y" firstAttribute="height" relation="lessThanOrEqual" secondItem="Vv7-aw-E3S" secondAttribute="height" id="wRd-ei-x54"/>
+                <constraint firstItem="SRC-k3-j1Y" firstAttribute="leading" secondItem="Ihi-xr-hhR" secondAttribute="trailing" constant="20" id="zK6-sv-gkZ"/>
+            </constraints>
+            <nil key="simulatedStatusBarMetrics"/>
+            <nil key="simulatedTopBarMetrics"/>
+            <nil key="simulatedBottomBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <variation key="default">
+                <mask key="constraints">
+                    <exclude reference="DIp-qY-dUp"/>
+                </mask>
+            </variation>
+            <connections>
+                <outlet property="collapseExpandBtn" destination="SRC-k3-j1Y" id="qvO-t3-g2b"/>
+                <outlet property="sectionHeaderName" destination="Ihi-xr-hhR" id="icc-aZ-YQi"/>
+            </connections>
+            <point key="canvasLocation" x="290" y="52"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="Arrow" width="512" height="512"/>
+    </resources>
+</document>

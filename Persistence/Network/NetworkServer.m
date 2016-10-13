@@ -79,8 +79,10 @@
 
 -(BOOL)getRecipeCategories: (NSString*)categoryID withSuccess:(void (^)(NSDictionary *data))successBlock withError: (void (^)(NSError *error))errorBlock{
     NSMutableString *api = [NSMutableString stringWithString:RecipeCategories];
-    NSString *parameter = [NSString stringWithFormat:@"?id=%@", categoryID];
-    [api appendString:parameter];
+    if(categoryID){
+        NSString *parameter = [NSString stringWithFormat:@"?id=%@", categoryID];
+        [api appendString:parameter];
+    }
     
     NSURL *url = [NSURL URLWithString:api];
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
