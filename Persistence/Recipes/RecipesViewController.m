@@ -23,13 +23,13 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     [self setup];
-//    [[RecipeModel instance] getByID:@"1"];
+    //    [[RecipeModel instance] getByID:@"1"];
     [[RecipeModel instance] getByName:@"水煮肉片"];
-//    [[RecipeModel instance] getCategories:@"10"];
-//    [[RecipeModel instance] getListByCategory:@"1"];
+    //    [[RecipeModel instance] getCategories:@"10"];
+    //    [[RecipeModel instance] getListByCategory:@"1"];
     
-
-
+    
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -47,7 +47,7 @@
 
 - (void)registerObserver{
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshRecipes:) name:RecipeModelRecipeListUpdate object:nil];
-//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshRecipes) name:RecipeModelRecipeUpdate object:nil];
+    //    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshRecipes) name:RecipeModelRecipeUpdate object:nil];
 }
 
 - (void)refreshRecipes: (NSNotification *) notification{
@@ -83,13 +83,13 @@
 
 
 /*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
+ #pragma mark - Navigation
+ 
+ // In a storyboard-based application, you will often want to do a little preparation before navigation
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+ // Get the new view controller using [segue destinationViewController].
+ // Pass the selected object to the new view controller.
+ }
+ */
 
 @end

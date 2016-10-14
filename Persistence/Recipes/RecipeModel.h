@@ -40,4 +40,8 @@ extern NSString *const RecipeModelRecipeSubCategoryUpdate;
 -(void) getByName: (NSString*) name;
 -(void) getByID: (NSString*) ID;
 
+-(void) persistentRecipeCategories:(NSArray<RecipeCategory *> *) recipeCategories;
+-(void) persistentRecipeCategory: (RecipeCategory* )recipeCategory;
+-(NSArray<RecipeCategory*> *) getPersistentRecipeCategories:(NSString *)cookclass;
+
 @end

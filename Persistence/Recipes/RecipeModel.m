@@ -8,6 +8,8 @@
 
 #import "RecipeModel.h"
 #import "PSServerRegistry.h"
+#import <Realm/RLMRealm.h>
+#import <Realm/RLMResults.h>
 
 @implementation RecipeModel
 
@@ -22,7 +24,7 @@ NSString *const RecipeModelRecipeSubCategoryUpdate = @"RecipeModelRecipeSubCateg
     dispatch_once(&onceToken, ^{
         _instance = [RecipeModel new];
         _instance->_psServer = [PSServerRegistry createServerWithStubEnabled:false];
-
+        
     });
     return _instance;
 }
@@ -50,24 +52,38 @@ NSString *const RecipeModelRecipeSubCategoryUpdate = @"RecipeModelRecipeSubCateg
 }
 
 -(void)getCategories:(NSString*)categoryID{
-    [self.psServer getRecipeCategories:categoryID withSuccess:^(NSDictionary *data) {
-        NSLog(@"%@", data[@"tngou"][0][@"keywords"]);
-        NSError *error;
-        @synchronized (self) {
-            NSString* ID = nil;
-            NSString* notificatioName = nil;
-            if(!categoryID){
-                ID = @"-1";
-                notificatioName = RecipeModelRecipeCategoryUpdate;
-            }else{
-                ID = categoryID;
-                notificatioName = RecipeModelRecipeSubCategoryUpdate;
-            }
-            RecipeCategoryResponseModel *recipeCategories = [MTLJSONAdapter modelOfClass:RecipeCategoryResponseModel.class fromJSONDictionary:data error:&error];
-            [[NSNotificationCenter defaultCenter] postNotificationName:notificatioName object:self userInfo:@{@"categoryID": ID, @"categoryObj": recipeCategories.recipeCategories}];
-        }
+    
+    NSString *cookClass = categoryID;
+    NSString* notificatioName = nil;
+    NSString* ID = nil;
+    if(!categoryID){
+        notificatioName = RecipeModelRecipeCategoryUpdate;
+        cookClass = @"0";
+        ID = @"-1";
+    }else{
+        notificatioName = RecipeModelRecipeSubCategoryUpdate;
+        ID = categoryID;
+    }
+    
+    NSArray<RecipeCategory *> *recipeCategories = [self getPersistentRecipeCategories:cookClass];
+    if(recipeCategories && [recipeCategories count] > 0){
+
+        [[NSNotificationCenter defaultCenter] postNotificationName:notificatioName object:self userInfo:@{@"categoryID": ID, @"categoryObj": recipeCategories}];
+    }else{
         
-    } withError:^(NSError *error) {}];
+        [self.psServer getRecipeCategories:categoryID withSuccess:^(NSDictionary *data) {
+            NSLog(@"%@", data[@"tngou"][0][@"keywords"]);
+            NSError *error;
+            @synchronized (self) {
+                RecipeCategoryResponseModel *recipeCategories = [MTLJSONAdapter modelOfClass:RecipeCategoryResponseModel.class fromJSONDictionary:data error:&error];
+
+                [self persistentRecipeCategories:recipeCategories.recipeCategories];
+
+                [[NSNotificationCenter defaultCenter] postNotificationName:notificatioName object:self userInfo:@{@"categoryObj": recipeCategories.recipeCategories}];
+            }
+
+        } withError:^(NSError *error) {}];
+    }
 }
 
 -(void)getListByCategory:(NSString *)categoryID{
@@ -84,7 +100,38 @@ NSString *const RecipeModelRecipeSubCategoryUpdate = @"RecipeModelRecipeSubCateg
         }
         [[NSNotificationCenter defaultCenter] postNotificationName:RecipeModelRecipeListUpdate object:self userInfo:@{@"categoryID": ID, @"categoryObj": recipes.recipes}];
         
+        
     } withError:^(NSError *error) {}];
+    
+}
+
+-(void) persistentRecipeCategories:(NSArray<RecipeCategory *> *) recipeCategories{
+    if(recipeCategories){
+        for(RecipeCategory* recipeCategory in recipeCategories){
+            [self persistentRecipeCategory: recipeCategory];
+        }
+    }
+}
+
+-(void) persistentRecipeCategory: (RecipeCategory* )recipeCategory{
+    RLMRealm *realm = [RLMRealm defaultRealm];
+    RecipeCategoryRealmObject *recipeCategoryRO = [[RecipeCategoryRealmObject new] initWithMantleModel:recipeCategory];
+    [realm beginWriteTransaction];
+    [realm addObject:recipeCategoryRO];
+    [realm commitWriteTransaction];
+    
+}
+
+-(NSArray<RecipeCategory *> *)getPersistentRecipeCategories:(NSString *)cookclass{
+    
+    NSPredicate *pred = [NSPredicate predicateWithFormat:@"cookclass = %@", cookclass];
+    RLMResults<RecipeCategoryRealmObject*> *recipeCategoriesRO = [RecipeCategoryRealmObject objectsWithPredicate:pred];
+    NSMutableArray<RecipeCategory *> * recipeCategories = [NSMutableArray new];
+    for(RecipeCategoryRealmObject* recipeCategoryRO in recipeCategoriesRO){
+        RecipeCategory* recipeCategory = recipeCategoryRO.recipeCategory;
+        [recipeCategories addObject:recipeCategory];
+    }
+    return [recipeCategories copy];
     
 }
 

@@ -46,7 +46,7 @@
 }
 
 - (void)initCategoryViewModel{
-        [[RecipeModel instance] getCategories:nil];
+    [[RecipeModel instance] getCategories:nil];
 }
 
 - (void)getRootCategory: (NSNotification*) notification{
@@ -60,7 +60,11 @@
 - (void)initAllSubCategory{
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getSubCategory:) name:RecipeModelRecipeCategoryUpdate  object:nil];
     for (RecipeCategory *recipeCategory in _rootCategories) {
-        [[RecipeModel instance] getCategories: [(NSNumber*)recipeCategory.ID stringValue]];
+        if([recipeCategory.ID isKindOfClass: NSNumber.class]){
+            [[RecipeModel instance] getCategories: [(NSNumber*)recipeCategory.ID stringValue]];
+        }else{
+            [[RecipeModel instance] getCategories: recipeCategory.ID];
+        }
     }
 }
 
@@ -68,7 +72,11 @@
     NSString *rootCategoryID = notification.userInfo[@"categoryID"];
     NSArray<RecipeCategory *> *subCategories = notification.userInfo[@"categoryObj"];
     for (RecipeCategory *recipeCategory in _rootCategories) {
-        if([[(NSNumber*)recipeCategory.ID stringValue] isEqualToString: rootCategoryID] ){
+        NSString* categoryID = recipeCategory.ID ;
+        if([recipeCategory.ID isKindOfClass:NSNumber.class]){
+            categoryID = [(NSNumber*)recipeCategory.ID stringValue];
+        }
+        if([categoryID isEqualToString: rootCategoryID] ){
             Category *category = [[Category new] initWithRecipeCategory: recipeCategory subCategories: subCategories];
             [_categories addObject: category];
             if([_categories count] == [_rootCategories count]){
@@ -110,7 +118,7 @@
     BOOL collapse = [[self.categoryViewModel.categories objectAtIndex:section] shouldSectionCollapsed];
     [sectionHeader setSectionData:[self.categoryViewModel.categories objectAtIndex:section].rootCategory.name sectionIndex: section collapse:collapse];
     return sectionHeader;
-
+    
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -125,50 +133,50 @@
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-//    [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+    //    [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
 }
 /*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
-}
-*/
+ // Override to support conditional editing of the table view.
+ - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+ // Return NO if you do not want the specified item to be editable.
+ return YES;
+ }
+ */
 
 /*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-*/
+ // Override to support editing the table view.
+ - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+ if (editingStyle == UITableViewCellEditingStyleDelete) {
+ // Delete the row from the data source
+ [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+ } else if (editingStyle == UITableViewCellEditingStyleInsert) {
+ // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
+ }
+ }
+ */
 
 /*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
-}
-*/
+ // Override to support rearranging the table view.
+ - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
+ }
+ */
 
 /*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
+ // Override to support conditional rearranging of the table view.
+ - (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
+ // Return NO if you do not want the item to be re-orderable.
+ return YES;
+ }
+ */
 
 /*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
+ #pragma mark - Navigation
+ 
+ // In a storyboard-based application, you will often want to do a little preparation before navigation
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+ // Get the new view controller using [segue destinationViewController].
+ // Pass the selected object to the new view controller.
+ }
+ */
 
 @end
