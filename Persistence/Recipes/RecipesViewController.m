@@ -14,7 +14,7 @@
 
 
 @interface RecipesViewController ()
-@property (nonatomic, readonly)  NSArray<Recipe *> *recipes;;
+@property (nonatomic, readonly)  NSMutableArray<Recipe *> *recipes;;
 @property (weak, nonatomic) IBOutlet UITableView *recipeTable;
 @property (weak, nonatomic) IBOutlet UIStackView *selectedCategoryStack;
 @property (weak, nonatomic) NSLayoutConstraint *selectedCategoryWidthConstraint;
@@ -30,12 +30,15 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     _editSelectedCategories = false;
+    _recipes = [NSMutableArray new];
     // Do any additional setup after loading the view.
     [self setup];
     //    [[RecipeModel instance] getByID:@"1"];
-    [[RecipeModel instance] getByName:@"水煮肉片"];
+    //    [[RecipeModel instance] getByName:@"水煮肉片"];
     //    [[RecipeModel instance] getCategories:@"10"];
     //    [[RecipeModel instance] getListByCategory:@"1"];
+    
+    [self initViewModel];
     
     _recipeTableViewTopConstraint.constant = -30;
     
@@ -57,6 +60,17 @@
     [self.view addGestureRecognizer:tapGesture];
 }
 
+- (void)initViewModel{
+    [_recipes removeAllObjects];
+    if([_selectedCategoyItems count] == 0){
+        [[RecipeModel instance] getListByCategory:@"10" pageIndex:2];
+    }else{
+        for(RecipeCategory* recipeCategory in _selectedCategoyItems){
+            [[RecipeModel instance] getListByCategory: recipeCategory.ID pageIndex:2] ;
+        }
+    }
+}
+
 
 
 - (void)registerObserver{
@@ -65,8 +79,8 @@
 }
 
 - (void)refreshRecipes: (NSNotification *) notification{
-    _recipes = notification.userInfo[@"recipeObj"];
-    if(self.recipes){
+    [_recipes addObjectsFromArray: notification.userInfo[@"recipeObj"]];
+    if(_recipes){
         [_recipeTable reloadData];
     }
 }
@@ -95,6 +109,14 @@
 }
 
 - (void)setSelectedCategories:(NSArray<RecipeCategory *> *)selectedCategories{
+    [_selectedCategoyItems addObjectsFromArray:selectedCategories];
+    [self updateRecipeCategoryTopMargin:selectedCategories];
+    [self updateSelectedCategoryStackView];
+    [self initViewModel];
+    
+}
+
+- (void) updateRecipeCategoryTopMargin:(NSArray<RecipeCategory *> *)selectedCategories{
     if ([selectedCategories count] > 0){
         if(self.editSelectedCategories){
             _recipeTableViewTopConstraint.constant = 30;
@@ -105,6 +127,10 @@
         _recipeTableViewTopConstraint.constant = -30;
     }
     _selectedCategoyItems = [NSMutableArray arrayWithArray:selectedCategories];
+    
+}
+
+- (void) updateSelectedCategoryStackView{
     for (UIView *view in [self.selectedCategoryStack subviews]){
         [self.selectedCategoryStack removeArrangedSubview:view];
         [view removeFromSuperview];
@@ -139,7 +165,7 @@
         if(self.selectedCategoyItems != nil){
             self.editSelectedCategories = true;
         }
-        [self setSelectedCategories: self.selectedCategoyItems];
+        [self updateSelectedCategoryStackView];
     }
     
 }

@@ -9,6 +9,21 @@
 #import "Recipe.h"
 #import "Api.h"
 
+@implementation RecipeRealmObject
+
+-(instancetype)initWithData:(Recipe *)recipe pageIndex:(NSInteger) pageIndex{
+    _ID = recipe.ID;
+    _name = recipe.name;
+    _foods = recipe.foods;
+    _imageUrl = recipe.imageUrl;
+    _keywords = recipe.keywords;
+    _steps = recipe.steps;
+    _onPageIndex = pageIndex;
+    return self;
+}
+
+@end
+
 @implementation Recipe
 
 @synthesize imageUrl = _imageUrl;

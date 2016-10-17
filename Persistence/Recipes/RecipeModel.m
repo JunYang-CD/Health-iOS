@@ -42,7 +42,6 @@ NSString *const RecipeModelRecipeSubCategoryUpdate = @"RecipeModelRecipeSubCateg
 
 -(void)getByName:(NSString *)name{
     [self.psServer getRecipeByName:name withSuccess:^(NSDictionary* data){
-        NSLog(@"%@", data[@"tngou"][0][@"food"]);
         NSError *error;
         RecipeResponseModel *recipes = [MTLJSONAdapter modelOfClass:RecipeResponseModel.class fromJSONDictionary: data error:&error];
         [[NSNotificationCenter defaultCenter] postNotificationName:RecipeModelRecipeListUpdate object:self userInfo:@{@"recipeName": name, @"recipeObj": recipes.recipes}];
@@ -67,7 +66,7 @@ NSString *const RecipeModelRecipeSubCategoryUpdate = @"RecipeModelRecipeSubCateg
     
     NSArray<RecipeCategory *> *recipeCategories = [self getPersistentRecipeCategories:cookClass];
     if(recipeCategories && [recipeCategories count] > 0){
-
+        
         [[NSNotificationCenter defaultCenter] postNotificationName:notificatioName object:self userInfo:@{@"categoryID": ID, @"categoryObj": recipeCategories}];
     }else{
         
@@ -76,19 +75,18 @@ NSString *const RecipeModelRecipeSubCategoryUpdate = @"RecipeModelRecipeSubCateg
             NSError *error;
             @synchronized (self) {
                 RecipeCategoryResponseModel *recipeCategories = [MTLJSONAdapter modelOfClass:RecipeCategoryResponseModel.class fromJSONDictionary:data error:&error];
-
+                
                 [self persistentRecipeCategories:recipeCategories.recipeCategories];
-
+                
                 [[NSNotificationCenter defaultCenter] postNotificationName:notificatioName object:self userInfo:@{@"categoryObj": recipeCategories.recipeCategories}];
             }
-
+            
         } withError:^(NSError *error) {}];
     }
 }
 
--(void)getListByCategory:(NSString *)categoryID{
-    [self. psServer getRecipeListByCategory:categoryID withSuccess:^(NSDictionary *data) {
-        NSLog(@"%@", data[@"tngou"][0][@"keywords"]);
+-(void)getListByCategory:(NSString *)categoryID pageIndex:(NSInteger)pageIndex{
+    [self. psServer getRecipeListByCategory:categoryID pageIndex:pageIndex withSuccess:^(NSDictionary *data) {
         NSError *error;
         RecipeResponseModel *recipes = [MTLJSONAdapter modelOfClass:RecipeResponseModel.class fromJSONDictionary: data error:&error];
         NSString* ID = nil;
@@ -98,7 +96,11 @@ NSString *const RecipeModelRecipeSubCategoryUpdate = @"RecipeModelRecipeSubCateg
         }else{
             ID = categoryID;
         }
-        [[NSNotificationCenter defaultCenter] postNotificationName:RecipeModelRecipeListUpdate object:self userInfo:@{@"categoryID": ID, @"categoryObj": recipes.recipes}];
+        
+        if(recipes.recipes){
+            [self persistentRecipes:recipes.recipes pageIndex:pageIndex];
+            [[NSNotificationCenter defaultCenter] postNotificationName:RecipeModelRecipeListUpdate object:self userInfo:@{@"categoryID": ID, @"recipeObj": recipes.recipes}];
+        }
         
         
     } withError:^(NSError *error) {}];
@@ -133,6 +135,24 @@ NSString *const RecipeModelRecipeSubCategoryUpdate = @"RecipeModelRecipeSubCateg
     }
     return [recipeCategories copy];
     
+}
+
+
+-(void) persistentRecipes:(NSArray<Recipe *> *) recipes pageIndex:(NSInteger)pageIndex{
+    if(recipes){
+        for(Recipe *recipe in recipes){
+            [self persistentRecipe:recipe pageIndex:pageIndex];
+        }
+    }
+}
+
+
+-(void) persistentRecipe: (Recipe *) recipe pageIndex:(NSInteger)pageIndex{
+    RLMRealm *realm = [RLMRealm defaultRealm];
+    RecipeRealmObject *recipeRO = [[RecipeRealmObject new] initWithData:recipe pageIndex:pageIndex];
+    [realm beginWriteTransaction];
+    [realm addObject:recipeRO];
+    [realm commitWriteTransaction];
 }
 
 @end

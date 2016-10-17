@@ -101,9 +101,9 @@
     return true;
 }
 
--(BOOL)getRecipeListByCategory:(NSString *)categoryID withSuccess: (void (^)(NSDictionary *data))successBlock withError: (void (^)(NSError *error))errorBlock{
+-(BOOL)getRecipeListByCategory:(NSString *)categoryID pageIndex:(NSInteger) pageIndex withSuccess: (void (^)(NSDictionary *data))successBlock withError: (void (^)(NSError *error))errorBlock{
     NSMutableString *api = [NSMutableString stringWithString:RecipeListByCategory];
-    NSString *parameter = [NSString stringWithFormat:@"?id=%@", categoryID];
+    NSString *parameter = [NSString stringWithFormat:@"?id=%@&page=%ld", categoryID, (long)pageIndex];
     [api appendString:parameter];
     
     NSURL *url = [NSURL URLWithString:api];

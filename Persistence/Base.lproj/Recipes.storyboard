@@ -10,12 +10,6 @@
         <!--Recipes-->
         <scene sceneID="Iby-TM-vGs">
             <objects>
-                <view contentMode="scaleToFill" id="wl0-eW-JS6">
-                    <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                </view>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="MtO-33-6bZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController id="xmF-yD-Ql3" customClass="RecipesViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="TiI-ow-vzS"/>
@@ -94,6 +88,12 @@
                         <outlet property="selectedCategoryStack" destination="lI6-fR-c2R" id="iuy-uU-Kzu"/>
                     </connections>
                 </viewController>
+                <view contentMode="scaleToFill" id="wl0-eW-JS6">
+                    <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                </view>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="MtO-33-6bZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2228" y="1299"/>
         </scene>

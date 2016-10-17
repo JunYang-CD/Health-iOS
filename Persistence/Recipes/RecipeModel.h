@@ -13,7 +13,7 @@
 @protocol RecipeFetcher
 
 -(BOOL) getRecipeCategories: (NSString*)categoryID withSuccess:(void (^)(NSDictionary *data))successBlock withError: (void (^)(NSError *error))errorBlock;
--(BOOL) getRecipeListByCategory: (NSString*)categoryID withSuccess: (void (^)(NSDictionary *data))successBlock withError: (void (^)(NSError *error))errorBlock;
+-(BOOL) getRecipeListByCategory: (NSString*)categoryID pageIndex:(NSInteger) pageIndex withSuccess: (void (^)(NSDictionary *data))successBlock withError: (void (^)(NSError *error))errorBlock;
 -(BOOL) getRecipeByName: (NSString*) recipeName withSuccess: (void (^)(NSDictionary *data))successBlock withError: (void (^)(NSError *error))errorBlock;
 -(BOOL) getRecipeByID: (NSString*)recipeID withSuccess: (void (^)(NSDictionary *data))successBlock withError: (void (^)(NSError *error))errorBlock;
 
@@ -36,7 +36,7 @@ extern NSString *const RecipeModelRecipeSubCategoryUpdate;
 //@property (nonatomic, readonly) Recipe* recipe;
 
 -(void) getCategories: (NSString*) categoryID;
--(void) getListByCategory: (NSString*) categoryID;
+-(void) getListByCategory: (NSString*) categoryID pageIndex:(NSInteger)pageIndex;
 -(void) getByName: (NSString*) name;
 -(void) getByID: (NSString*) ID;
 
