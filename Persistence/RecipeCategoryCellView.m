@@ -27,7 +27,7 @@
     
     // Configure the view for the selected state
     if(selected){
-        _category.checked = !_category.checked;
+        self.category.checked = !self.category.checked;
     }
     _checkImage.hidden = !_category.checked;
 }
@@ -36,5 +36,6 @@
     _category = category;
     _recipeCategoryLabel.text = category.name;
 }
+
 
 @end

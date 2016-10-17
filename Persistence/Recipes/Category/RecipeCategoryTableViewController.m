@@ -32,6 +32,23 @@
     
 }
 
+-(void)viewWillDisappear:(BOOL)animated{
+    if(self.delegate)
+    {
+        NSMutableArray<RecipeCategory *> *selectedCategories = [NSMutableArray new];
+        for (Category* category in self.categoryViewModel.categories){
+            for(RecipeCategory* recipeCategory in [category subCategories]){
+                if(recipeCategory.checked){
+                    [selectedCategories addObject:recipeCategory];
+                }
+            }
+        }
+        [self.delegate setSelectedCategories:selectedCategories];
+    }
+}
+
+
+
 - (void) regsiterObserver{
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getRootCategory:) name: RecipeModelRecipeCategoryUpdate object:nil];
     
@@ -71,7 +88,15 @@
 - (void)getSubCategory: (NSNotification*) notification{
     NSString *rootCategoryID = notification.userInfo[@"categoryID"];
     NSArray<RecipeCategory *> *subCategories = notification.userInfo[@"categoryObj"];
+    for(RecipeCategory * subRecipeCategory in subCategories){
+        if([self existsInCheckedCategory:subRecipeCategory.ID]){
+            subRecipeCategory.checked = true;
+        }
+    }
     for (RecipeCategory *recipeCategory in _rootCategories) {
+        if([self existsInCheckedCategory: recipeCategory.ID]){
+            recipeCategory.checked = true;
+        }
         NSString* categoryID = recipeCategory.ID ;
         if([recipeCategory.ID isKindOfClass:NSNumber.class]){
             categoryID = [(NSNumber*)recipeCategory.ID stringValue];
@@ -87,6 +112,15 @@
         }
     }
     
+}
+
+-(BOOL) existsInCheckedCategory:(NSString *) ID{
+    for(RecipeCategory *recipeCategory in self.checkedCategories){
+        if([recipeCategory.ID isEqualToString:ID]){
+            return true;
+        }
+    }
+    return false;
 }
 
 - (void) setViewModel: (NSArray<Category *> *) categories{

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10116" systemVersion="15G1004" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="RecipeCategoryFilterViewController"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="gaE-NK-z7G">
+            <rect key="frame" x="0.0" y="0.0" width="107" height="59"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <imageView userInteractionEnabled="NO" alpha="0.90000000000000002" tag="2" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Cross" translatesAutoresizingMaskIntoConstraints="NO" id="DMy-sq-xtt">
+                    <rect key="frame" x="97" y="0.0" width="10" height="10"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="10" id="Rff-gt-ukf"/>
+                        <constraint firstAttribute="height" constant="10" id="WXo-cb-8n4"/>
+                    </constraints>
+                </imageView>
+                <label opaque="NO" userInteractionEnabled="NO" tag="1" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SHa-YN-oHB">
+                    <rect key="frame" x="0.0" y="0.0" width="107" height="59"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="10" id="fGu-Wf-Nbu"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                    <nil key="highlightedColor"/>
+                    <variation key="default">
+                        <mask key="constraints">
+                            <exclude reference="fGu-Wf-Nbu"/>
+                        </mask>
+                    </variation>
+                </label>
+            </subviews>
+            <color key="backgroundColor" white="0.66666666666666663" alpha="0.57723599137931036" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="DMy-sq-xtt" firstAttribute="centerY" secondItem="gaE-NK-z7G" secondAttribute="centerY" id="47V-RA-3OH"/>
+                <constraint firstItem="SHa-YN-oHB" firstAttribute="height" secondItem="gaE-NK-z7G" secondAttribute="height" id="DX8-6B-6WY"/>
+                <constraint firstItem="SHa-YN-oHB" firstAttribute="centerY" secondItem="gaE-NK-z7G" secondAttribute="centerY" id="Dsz-i1-ghv"/>
+                <constraint firstItem="DMy-sq-xtt" firstAttribute="top" secondItem="gaE-NK-z7G" secondAttribute="top" id="I7M-BB-uSX"/>
+                <constraint firstItem="DMy-sq-xtt" firstAttribute="top" secondItem="gaE-NK-z7G" secondAttribute="top" id="No8-Ix-ynX"/>
+                <constraint firstItem="DMy-sq-xtt" firstAttribute="centerX" secondItem="gaE-NK-z7G" secondAttribute="centerX" id="aXt-l9-3e5"/>
+                <constraint firstItem="SHa-YN-oHB" firstAttribute="width" secondItem="gaE-NK-z7G" secondAttribute="width" id="bQ4-43-4x0"/>
+                <constraint firstAttribute="trailing" secondItem="DMy-sq-xtt" secondAttribute="trailing" id="cUF-JF-LUK"/>
+                <constraint firstItem="SHa-YN-oHB" firstAttribute="centerX" secondItem="gaE-NK-z7G" secondAttribute="centerX" id="d2l-Mu-WMP"/>
+                <constraint firstAttribute="trailing" secondItem="DMy-sq-xtt" secondAttribute="trailing" id="fZY-4W-IHo"/>
+            </constraints>
+            <nil key="simulatedStatusBarMetrics"/>
+            <nil key="simulatedTopBarMetrics"/>
+            <nil key="simulatedBottomBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <variation key="default">
+                <mask key="constraints">
+                    <exclude reference="47V-RA-3OH"/>
+                    <exclude reference="No8-Ix-ynX"/>
+                    <exclude reference="aXt-l9-3e5"/>
+                    <exclude reference="fZY-4W-IHo"/>
+                </mask>
+            </variation>
+            <point key="canvasLocation" x="-978.5" y="-281.5"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="Cross" width="2400" height="2400"/>
+    </resources>
+</document>

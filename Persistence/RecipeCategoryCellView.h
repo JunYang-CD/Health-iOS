@@ -10,5 +10,7 @@
 #import "RecipeCategory.h"
 
 @interface RecipeCategoryCellView : UITableViewCell
+
 -(void)setData:(RecipeCategory *)category;
+
 @end

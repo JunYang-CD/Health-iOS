@@ -66,7 +66,7 @@
 }
 
 +(NSDictionary *)defaultPropertyValues{
-    return @{@"name":@"无名菜"};
+    return @{@"name":@"无名菜系"};
 }
 
 -(RecipeCategory *)recipeCategory{

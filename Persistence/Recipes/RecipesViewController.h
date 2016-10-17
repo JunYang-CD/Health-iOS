@@ -7,7 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "RecipeCategoryTableViewController.h"
 
-@interface RecipesViewController : UIViewController<UITableViewDelegate, UITableViewDataSource>
+@interface RecipesViewController : UIViewController<UITableViewDelegate, UITableViewDataSource, SelectedCategory>
 - (void)refreshRecipes;
+
 @end

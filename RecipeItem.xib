@@ -16,8 +16,8 @@
                 <rect key="frame" x="0.0" y="0.0" width="548" height="102.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" restorationIdentifier="image" translatesAutoresizingMaskIntoConstraints="NO" id="RMi-sa-Mqx">
-                        <rect key="frame" x="18" y="13" width="80" height="80"/>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" restorationIdentifier="image" translatesAutoresizingMaskIntoConstraints="NO" id="RMi-sa-Mqx">
+                        <rect key="frame" x="8" y="13" width="115.5" height="65"/>
                         <color key="backgroundColor" red="0.0" green="0.49019607840000001" blue="0.72941176470000002" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstAttribute="width" secondItem="RMi-sa-Mqx" secondAttribute="height" multiplier="1:1" id="9fk-q3-9fW"/>
@@ -37,17 +37,17 @@
                             </mask>
                         </variation>
                     </imageView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" restorationIdentifier="foods" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="B7e-6v-C9f">
-                        <rect key="frame" x="164" y="63" width="366" height="30"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" restorationIdentifier="foods" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="B7e-6v-C9f">
+                        <rect key="frame" x="133" y="51" width="396.5" height="30"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="30" id="FEo-7e-lJ8"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <color key="textColor" red="1" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" restorationIdentifier="name" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TvF-vO-BIw" userLabel="Name">
-                        <rect key="frame" x="164" y="13" width="366" height="42"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" restorationIdentifier="name" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TvF-vO-BIw" userLabel="Name">
+                        <rect key="frame" x="133.5" y="13" width="396.5" height="30"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="366" id="2C2-1y-EHr"/>
                             <constraint firstAttribute="height" constant="30" id="KCi-po-SK5"/>
@@ -70,10 +70,11 @@
                     <constraint firstItem="TvF-vO-BIw" firstAttribute="leading" secondItem="RMi-sa-Mqx" secondAttribute="trailing" constant="10" id="6PJ-MD-Qj9"/>
                     <constraint firstItem="TvF-vO-BIw" firstAttribute="trailing" secondItem="B7e-6v-C9f" secondAttribute="trailing" id="AdD-nG-4xZ"/>
                     <constraint firstItem="RMi-sa-Mqx" firstAttribute="centerY" secondItem="wQd-o0-a96" secondAttribute="centerY" id="DF0-X7-w94"/>
+                    <constraint firstItem="RMi-sa-Mqx" firstAttribute="leading" secondItem="wQd-o0-a96" secondAttribute="leadingMargin" id="FwF-q8-8eE"/>
                     <constraint firstItem="B7e-6v-C9f" firstAttribute="leading" secondItem="RMi-sa-Mqx" secondAttribute="leading" constant="10" id="OPg-On-nN2"/>
                     <constraint firstItem="B7e-6v-C9f" firstAttribute="leading" secondItem="RMi-sa-Mqx" secondAttribute="trailing" constant="10" id="PGG-Hg-XiM"/>
                     <constraint firstItem="B7e-6v-C9f" firstAttribute="baseline" secondItem="RMi-sa-Mqx" secondAttribute="baseline" id="UqY-gu-LxS"/>
-                    <constraint firstItem="RMi-sa-Mqx" firstAttribute="leading" secondItem="wQd-o0-a96" secondAttribute="leadingMargin" constant="10" id="VLK-JO-WlC"/>
+                    <constraint firstItem="RMi-sa-Mqx" firstAttribute="leading" secondItem="wQd-o0-a96" secondAttribute="leadingMargin" id="VLK-JO-WlC"/>
                     <constraint firstItem="B7e-6v-C9f" firstAttribute="centerX" secondItem="RMi-sa-Mqx" secondAttribute="centerX" id="VyA-Wk-xXr"/>
                     <constraint firstAttribute="leadingMargin" secondItem="RMi-sa-Mqx" secondAttribute="leading" constant="10" id="YY6-JR-tw4"/>
                     <constraint firstItem="B7e-6v-C9f" firstAttribute="centerY" secondItem="wQd-o0-a96" secondAttribute="centerY" id="Z5E-E6-8oN"/>
@@ -87,6 +88,7 @@
                 </constraints>
                 <variation key="default">
                     <mask key="constraints">
+                        <exclude reference="VLK-JO-WlC"/>
                         <exclude reference="YY6-JR-tw4"/>
                         <exclude reference="mnx-Pi-qau"/>
                         <exclude reference="nyB-Wx-oMz"/>

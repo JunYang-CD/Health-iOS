@@ -10,23 +10,34 @@
 #import "RecipeCellView.h"
 #import "RecipeCellViewModel.h"
 #import "RecipeModel.h"
+#import "RecipeCategoryTableViewController.h"
 
 
 @interface RecipesViewController ()
 @property (nonatomic, readonly)  NSArray<Recipe *> *recipes;;
 @property (weak, nonatomic) IBOutlet UITableView *recipeTable;
+@property (weak, nonatomic) IBOutlet UIStackView *selectedCategoryStack;
+@property (weak, nonatomic) NSLayoutConstraint *selectedCategoryWidthConstraint;
+@property (nonatomic) NSMutableArray<RecipeCategory *> *selectedCategoyItems;
+@property (nonatomic) BOOL editSelectedCategories;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *recipeTableViewTopConstraint;
+
+
 @end
 
 @implementation RecipesViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    _editSelectedCategories = false;
     // Do any additional setup after loading the view.
     [self setup];
     //    [[RecipeModel instance] getByID:@"1"];
     [[RecipeModel instance] getByName:@"水煮肉片"];
     //    [[RecipeModel instance] getCategories:@"10"];
     //    [[RecipeModel instance] getListByCategory:@"1"];
+    
+    _recipeTableViewTopConstraint.constant = -30;
     
     
     
@@ -41,6 +52,9 @@
     _recipeTable.dataSource = self;
     _recipeTable.delegate = self;
     [self registerObserver];
+    
+    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector( cancleEditSelectedCategory:) ];
+    [self.view addGestureRecognizer:tapGesture];
 }
 
 
@@ -80,16 +94,92 @@
     return 80.0;
 }
 
+- (void)setSelectedCategories:(NSArray<RecipeCategory *> *)selectedCategories{
+    if ([selectedCategories count] > 0){
+        if(self.editSelectedCategories){
+            _recipeTableViewTopConstraint.constant = 30;
+        }else{
+            _recipeTableViewTopConstraint.constant = 10;
+        }
+    }else{
+        _recipeTableViewTopConstraint.constant = -30;
+    }
+    _selectedCategoyItems = [NSMutableArray arrayWithArray:selectedCategories];
+    for (UIView *view in [self.selectedCategoryStack subviews]){
+        [self.selectedCategoryStack removeArrangedSubview:view];
+        [view removeFromSuperview];
+        
+    }
+    NSInteger width = 0;
+    for (RecipeCategory* recipeCategory in self.selectedCategoyItems){
+        
+        NSArray<UIView *> *views = [[NSBundle mainBundle] loadNibNamed:@"RecipeCategoryFilterView" owner:self options:nil];
+        UIView *view = [views objectAtIndex:0];
+        ((UILabel*)[view viewWithTag:1]).text = recipeCategory.name;
+        UILongPressGestureRecognizer *gesRecognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(handleLongPress:)];
+        [view addGestureRecognizer:gesRecognizer];
+        [view viewWithTag:2].hidden = !self.editSelectedCategories;
+        UITapGestureRecognizer *removeCategoryGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(removeCategoryGesture:)];
+        [view setUserInteractionEnabled:true];
+        [view addGestureRecognizer:removeCategoryGesture];
+        
+        [self.selectedCategoryStack addArrangedSubview:view];
+        width += 40;
+    }
+    
+    self.selectedCategoryWidthConstraint != nil ? [self.selectedCategoryStack removeConstraint: self.selectedCategoryWidthConstraint] : nil;
+    self.selectedCategoryWidthConstraint = [self.selectedCategoryStack.widthAnchor constraintEqualToConstant:width];
+    self.selectedCategoryWidthConstraint.active = true;
+    
+}
+
+-(void) handleLongPress:(UILongPressGestureRecognizer*) gusterReconginze{
+    if (gusterReconginze.state == UIGestureRecognizerStateBegan) {
+        NSLog(@"filter long pressed ");
+        if(self.selectedCategoyItems != nil){
+            self.editSelectedCategories = true;
+        }
+        [self setSelectedCategories: self.selectedCategoyItems];
+    }
+    
+}
+-(void)removeCategoryGesture:(UITapGestureRecognizer*) tapGesture{
+    
+    if(self.editSelectedCategories){
+        NSInteger index = -1;
+        NSInteger removeIndex = index;
+        for(UIView *view in self.selectedCategoryStack.subviews){
+            index ++;
+            if(view  == tapGesture.view){
+                removeIndex = index;
+            }
+        }
+        if(removeIndex >= 0){
+            [self.selectedCategoyItems removeObjectAtIndex: removeIndex];
+            [self setSelectedCategories: self.selectedCategoyItems];
+        }
+    }
+}
+
+-(void)cancleEditSelectedCategory:(UITapGestureRecognizer*) tapGesture{
+    self.editSelectedCategories = false;
+    [self setSelectedCategories:self.selectedCategoyItems];
+}
 
 
-/*
- #pragma mark - Navigation
- 
- // In a storyboard-based application, you will often want to do a little preparation before navigation
- - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
- // Get the new view controller using [segue destinationViewController].
- // Pass the selected object to the new view controller.
- }
- */
+
+
+
+#pragma mark - Navigation
+
+// In a storyboard-based application, you will often want to do a little preparation before navigation
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    // Get the new view controller using [segue destinationViewController].
+    // Pass the selected object to the new view controller.
+    self.editSelectedCategories = false;
+    [(RecipeCategoryTableViewController *)[segue destinationViewController] setDelegate:self];
+    [(RecipeCategoryTableViewController *)[segue destinationViewController] setCheckedCategories: self.selectedCategoyItems];
+}
+
 
 @end
