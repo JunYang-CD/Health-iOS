@@ -86,6 +86,7 @@
                         <outlet property="recipeTable" destination="QcM-xV-Fww" id="m07-iN-tLI"/>
                         <outlet property="recipeTableViewTopConstraint" destination="h3T-Nv-dUB" id="Q81-pD-BVO"/>
                         <outlet property="selectedCategoryStack" destination="lI6-fR-c2R" id="iuy-uU-Kzu"/>
+                        <segue destination="P3O-bM-Zcn" kind="show" identifier="showRecipeDetail" id="1NB-7n-Mgy"/>
                     </connections>
                 </viewController>
                 <view contentMode="scaleToFill" id="wl0-eW-JS6">
@@ -96,6 +97,51 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MtO-33-6bZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2228" y="1299"/>
+        </scene>
+        <!--Recipe Detail View Controller-->
+        <scene sceneID="nL2-vc-QPo">
+            <objects>
+                <viewController id="P3O-bM-Zcn" customClass="RecipeDetailViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="CfW-dV-qUn"/>
+                        <viewControllerLayoutGuide type="bottom" id="Xhm-tZ-3BV"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Kh4-ca-ciw">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="VEY-Gi-La3">
+                                <rect key="frame" x="20" y="64" width="560" height="487"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0aJ-qp-eDR">
+                                        <rect key="frame" x="0.0" y="0.0" width="560" height="315"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="0aJ-qp-eDR" secondAttribute="height" multiplier="16:9" id="yJq-Yr-S9L"/>
+                                        </constraints>
+                                    </imageView>
+                                    <webView contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fgk-gu-QLf">
+                                        <rect key="frame" x="0.0" y="315" width="560" height="172"/>
+                                        <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="deviceRGB"/>
+                                    </webView>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="VEY-Gi-La3" firstAttribute="top" secondItem="CfW-dV-qUn" secondAttribute="bottom" id="KcL-0q-Ekh"/>
+                            <constraint firstItem="VEY-Gi-La3" firstAttribute="bottom" secondItem="Xhm-tZ-3BV" secondAttribute="top" id="Wxo-Xa-90s"/>
+                            <constraint firstItem="VEY-Gi-La3" firstAttribute="trailing" secondItem="Kh4-ca-ciw" secondAttribute="trailingMargin" id="j7z-jy-JlV"/>
+                            <constraint firstItem="VEY-Gi-La3" firstAttribute="leading" secondItem="Kh4-ca-ciw" secondAttribute="leadingMargin" id="wKi-xK-jSa"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="recipeImageView" destination="0aJ-qp-eDR" id="k3f-Ou-uQ7"/>
+                        <outlet property="recipeWebView" destination="fgk-gu-QLf" id="6Ll-5b-W53"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="16e-7B-cnv" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2228" y="2162"/>
         </scene>
         <!--Recipe Category Table View Controller-->
         <scene sceneID="THP-3o-6PN">

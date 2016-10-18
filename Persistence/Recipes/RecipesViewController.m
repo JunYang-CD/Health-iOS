@@ -11,6 +11,7 @@
 #import "RecipeCellViewModel.h"
 #import "RecipeModel.h"
 #import "RecipeCategoryTableViewController.h"
+#import "RecipeDetailViewController.h"
 
 
 @interface RecipesViewController ()
@@ -21,6 +22,7 @@
 @property (nonatomic) NSMutableArray<RecipeCategory *> *selectedCategoyItems;
 @property (nonatomic) BOOL editSelectedCategories;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *recipeTableViewTopConstraint;
+@property (weak, nonatomic, readonly) Recipe *selectedRecipe;
 
 
 @end
@@ -54,9 +56,11 @@
 - (void)setup{
     _recipeTable.dataSource = self;
     _recipeTable.delegate = self;
+    _recipeTable.userInteractionEnabled = true;
     [self registerObserver];
     
     UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector( cancleEditSelectedCategory:) ];
+    tapGesture.cancelsTouchesInView = false;
     [self.view addGestureRecognizer:tapGesture];
 }
 
@@ -106,6 +110,13 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     return 80.0;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    if(_recipes && [_recipes count] >= indexPath.row){
+        _selectedRecipe = [self.recipes objectAtIndex:indexPath.row];
+        [self performSegueWithIdentifier:@"showRecipeDetail" sender:self];
+    }
 }
 
 - (void)setSelectedCategories:(NSArray<RecipeCategory *> *)selectedCategories{
@@ -188,8 +199,10 @@
 }
 
 -(void)cancleEditSelectedCategory:(UITapGestureRecognizer*) tapGesture{
-    self.editSelectedCategories = false;
-    [self setSelectedCategories:self.selectedCategoyItems];
+    if(self.editSelectedCategories){
+        self.editSelectedCategories = false;
+        [self setSelectedCategories:self.selectedCategoyItems];
+    }
 }
 
 
@@ -203,8 +216,12 @@
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
     self.editSelectedCategories = false;
-    [(RecipeCategoryTableViewController *)[segue destinationViewController] setDelegate:self];
-    [(RecipeCategoryTableViewController *)[segue destinationViewController] setCheckedCategories: self.selectedCategoyItems];
+    if([segue.identifier isEqualToString:@"showRecipeCategory"] ){
+        [(RecipeCategoryTableViewController *)[segue destinationViewController] setDelegate:self];
+        [(RecipeCategoryTableViewController *)[segue destinationViewController] setCheckedCategories: self.selectedCategoyItems];
+    }else if([segue.identifier isEqualToString:@"showRecipeDetail"]){
+        [(RecipeDetailViewController *)segue.destinationViewController setData:_selectedRecipe];
+    }
 }
 
 

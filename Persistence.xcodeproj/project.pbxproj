@@ -15,6 +15,7 @@
 		C47DB0E71DAF2D50001B1CB7 /* RecipeCategorySectionHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = C47DB0E61DAF2D50001B1CB7 /* RecipeCategorySectionHeaderView.m */; };
 		C47DB0E91DAF2D8E001B1CB7 /* RecipeCategorySectionHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = C47DB0E81DAF2D8E001B1CB7 /* RecipeCategorySectionHeader.xib */; };
 		C47DB0F51DB11FF2001B1CB7 /* RecipeCategoryFilterView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C47DB0F31DB11FF2001B1CB7 /* RecipeCategoryFilterView.xib */; };
+		C47DB0FB1DB5FE8F001B1CB7 /* RecipeDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C47DB0FA1DB5FE8F001B1CB7 /* RecipeDetailViewController.m */; };
 		C4CB65C81D9B878C00E78B1D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C4CB65C71D9B878C00E78B1D /* main.m */; };
 		C4CB65CB1D9B878C00E78B1D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C4CB65CA1D9B878C00E78B1D /* AppDelegate.m */; };
 		C4CB65CE1D9B878C00E78B1D /* FirstViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C4CB65CD1D9B878C00E78B1D /* FirstViewController.m */; };
@@ -72,6 +73,8 @@
 		C47DB0E61DAF2D50001B1CB7 /* RecipeCategorySectionHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecipeCategorySectionHeaderView.m; sourceTree = "<group>"; };
 		C47DB0E81DAF2D8E001B1CB7 /* RecipeCategorySectionHeader.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RecipeCategorySectionHeader.xib; sourceTree = "<group>"; };
 		C47DB0F31DB11FF2001B1CB7 /* RecipeCategoryFilterView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RecipeCategoryFilterView.xib; sourceTree = "<group>"; };
+		C47DB0F91DB5FE8F001B1CB7 /* RecipeDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecipeDetailViewController.h; sourceTree = "<group>"; };
+		C47DB0FA1DB5FE8F001B1CB7 /* RecipeDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecipeDetailViewController.m; sourceTree = "<group>"; };
 		C4CB65C31D9B878C00E78B1D /* Persistence.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Persistence.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C4CB65C71D9B878C00E78B1D /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		C4CB65C91D9B878C00E78B1D /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -284,6 +287,8 @@
 				C4D254D01DA9E4A400DEE567 /* RecipeCategory.h */,
 				C4D254D11DA9E4A400DEE567 /* RecipeCategory.m */,
 				C47DB0F31DB11FF2001B1CB7 /* RecipeCategoryFilterView.xib */,
+				C47DB0F91DB5FE8F001B1CB7 /* RecipeDetailViewController.h */,
+				C47DB0FA1DB5FE8F001B1CB7 /* RecipeDetailViewController.m */,
 				C47DB0D61DACD35A001B1CB7 /* Category */,
 				C47DB0F01DAF8CD1001B1CB7 /* CoreData */,
 			);
@@ -514,6 +519,7 @@
 				C4D254CF1DA8E0BA00DEE567 /* PSServerRegistry.m in Sources */,
 				C47DB0D91DACD63C001B1CB7 /* RecipeCategoryTableViewController.m in Sources */,
 				C4D254C51DA8C85000DEE567 /* NetworkServer.m in Sources */,
+				C47DB0FB1DB5FE8F001B1CB7 /* RecipeDetailViewController.m in Sources */,
 				C4CB65C81D9B878C00E78B1D /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

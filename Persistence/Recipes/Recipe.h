@@ -37,5 +37,6 @@
 
 @interface RecipeResponseModel : MTLModel<MTLJSONSerializing>
 @property (nonatomic, readonly) NSArray<Recipe *> *recipes;
+//@property (nonatomic, readonly) Recipe *recipe;
 
 @end
