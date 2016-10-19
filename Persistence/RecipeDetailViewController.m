@@ -40,8 +40,6 @@
         [self registerNotificationObserver];
         [[RecipeModel instance] getByID:recipe.ID];
     }
-    //    [_recipeWebView loadHTMLString:recipe.steps baseURL:nil];
-    
 }
 
 -(void) registerNotificationObserver{

@@ -23,6 +23,7 @@
 @property (nonatomic) BOOL editSelectedCategories;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *recipeTableViewTopConstraint;
 @property (weak, nonatomic, readonly) Recipe *selectedRecipe;
+@property (nonatomic, readonly) NSInteger pageIndex;
 
 
 @end
@@ -33,6 +34,7 @@
     [super viewDidLoad];
     _editSelectedCategories = false;
     _recipes = [NSMutableArray new];
+    _pageIndex = 1;
     // Do any additional setup after loading the view.
     [self setup];
     //    [[RecipeModel instance] getByID:@"1"];
@@ -41,11 +43,7 @@
     //    [[RecipeModel instance] getListByCategory:@"1"];
     
     [self initViewModel];
-    
     _recipeTableViewTopConstraint.constant = -30;
-    
-    
-    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -66,15 +64,18 @@
 
 - (void)initViewModel{
     [_recipes removeAllObjects];
+    [self requestRecipes];
+}
+
+- (void)requestRecipes{
     if([_selectedCategoyItems count] == 0){
-        [[RecipeModel instance] getListByCategory:@"10" pageIndex:2];
+        [[RecipeModel instance] getListByCategory:@"10" pageIndex:_pageIndex];
     }else{
         for(RecipeCategory* recipeCategory in _selectedCategoyItems){
-            [[RecipeModel instance] getListByCategory: recipeCategory.ID pageIndex:2] ;
+            [[RecipeModel instance] getListByCategory: recipeCategory.ID pageIndex:_pageIndex] ;
         }
     }
 }
-
 
 
 - (void)registerObserver{
@@ -117,6 +118,14 @@
         _selectedRecipe = [self.recipes objectAtIndex:indexPath.row];
         [self performSegueWithIdentifier:@"showRecipeDetail" sender:self];
     }
+}
+
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath{
+    if(indexPath.row == [_recipes count] -1){
+        _pageIndex ++;
+        [self requestRecipes];
+    }
+    
 }
 
 - (void)setSelectedCategories:(NSArray<RecipeCategory *> *)selectedCategories{
@@ -193,7 +202,7 @@
         }
         if(removeIndex >= 0){
             [self.selectedCategoyItems removeObjectAtIndex: removeIndex];
-            [self setSelectedCategories: self.selectedCategoyItems];
+            [self updateSelectedCategoryStackView];
         }
     }
 }
@@ -201,7 +210,9 @@
 -(void)cancleEditSelectedCategory:(UITapGestureRecognizer*) tapGesture{
     if(self.editSelectedCategories){
         self.editSelectedCategories = false;
-        [self setSelectedCategories:self.selectedCategoyItems];
+        //        [self setSelectedCategories:self.selectedCategoyItems];
+        [self updateSelectedCategoryStackView];
+        [self initViewModel];
     }
 }
 
