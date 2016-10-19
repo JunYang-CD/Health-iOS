@@ -156,7 +156,8 @@
 }
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath{
-    if(indexPath.row == [_recipes count] -1 && [self.recipeSearchTextField.text isEqualToString:@""]){
+//todo: measure how many rows can be displayed on the screen at one time.
+    if(indexPath.row >= 7 && indexPath.row == [_recipes count] -1 && [self.recipeSearchTextField.text isEqualToString:@""]){
         _pageIndex ++;
         [self requestRecipes];
     }

@@ -78,7 +78,7 @@ NSString *const RecipeModelRecipeSubCategoryUpdate = @"RecipeModelRecipeSubCateg
                 
                 [self persistentRecipeCategories:recipeCategories.recipeCategories];
                 
-                [[NSNotificationCenter defaultCenter] postNotificationName:notificatioName object:self userInfo:@{@"categoryObj": recipeCategories.recipeCategories}];
+                [[NSNotificationCenter defaultCenter] postNotificationName:notificatioName object:self userInfo:@{@"categoryID": ID, @"categoryObj": recipeCategories.recipeCategories}];
             }
             
         } withError:^(NSError *error) {}];
