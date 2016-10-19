@@ -38,7 +38,7 @@
         _recipe = recipe;
         self.title = recipe.name;
         [self registerNotificationObserver];
-        [[RecipeModel instance] getByID:recipe.ID];
+        [[RecipeModel instance] getByID:_recipe.ID];
     }
 }
 

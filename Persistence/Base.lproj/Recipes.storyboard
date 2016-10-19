@@ -28,7 +28,10 @@
                                             <constraint firstAttribute="height" constant="30" id="PEF-Tn-Vf4"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits"/>
+                                        <textInputTraits key="textInputTraits" returnKeyType="search"/>
+                                        <connections>
+                                            <action selector="recipeSearchTextFieldChanged:" destination="xmF-yD-Ql3" eventType="editingChanged" id="9tg-QW-7kM"/>
+                                        </connections>
                                     </textField>
                                     <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="lI6-fR-c2R">
                                         <rect key="frame" x="281" y="20" width="0.0" height="30"/>
@@ -83,6 +86,7 @@
                     </view>
                     <navigationItem key="navigationItem" title="Recipes" id="fjK-ws-hG9"/>
                     <connections>
+                        <outlet property="recipeSearchTextField" destination="2bs-tU-LqH" id="ECr-dZ-zp8"/>
                         <outlet property="recipeTable" destination="QcM-xV-Fww" id="m07-iN-tLI"/>
                         <outlet property="recipeTableViewTopConstraint" destination="h3T-Nv-dUB" id="Q81-pD-BVO"/>
                         <outlet property="selectedCategoryStack" destination="lI6-fR-c2R" id="iuy-uU-Kzu"/>
@@ -119,7 +123,7 @@
                                             <constraint firstAttribute="width" secondItem="0aJ-qp-eDR" secondAttribute="height" multiplier="16:9" id="yJq-Yr-S9L"/>
                                         </constraints>
                                     </imageView>
-                                    <webView contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fgk-gu-QLf">
+                                    <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fgk-gu-QLf">
                                         <rect key="frame" x="0.0" y="325" width="560" height="162"/>
                                         <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="deviceRGB"/>
                                     </webView>

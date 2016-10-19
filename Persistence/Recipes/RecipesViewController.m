@@ -19,11 +19,13 @@
 @property (weak, nonatomic) IBOutlet UITableView *recipeTable;
 @property (weak, nonatomic) IBOutlet UIStackView *selectedCategoryStack;
 @property (weak, nonatomic) NSLayoutConstraint *selectedCategoryWidthConstraint;
-@property (nonatomic) NSMutableArray<RecipeCategory *> *selectedCategoyItems;
+@property (nonatomic) NSMutableArray<RecipeCategory *> *selectedCategoryItems;
 @property (nonatomic) BOOL editSelectedCategories;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *recipeTableViewTopConstraint;
 @property (weak, nonatomic, readonly) Recipe *selectedRecipe;
 @property (nonatomic, readonly) NSInteger pageIndex;
+@property (weak, nonatomic) IBOutlet UITextField *recipeSearchTextField;
+@property (nonatomic) BOOL recipeSearchTextFieldChanged;
 
 
 @end
@@ -44,6 +46,7 @@
     
     [self initViewModel];
     _recipeTableViewTopConstraint.constant = -30;
+    [_recipeSearchTextField setDelegate: self];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -64,23 +67,55 @@
 
 - (void)initViewModel{
     [_recipes removeAllObjects];
+    _pageIndex = 1;
+    
+    //  todo: Remove below block. Disable search feature when there is selected categories in temp. As server API is not ready for search recipe in categories.
+    if([self.selectedCategoryItems count] >0 ){
+        self.recipeSearchTextField.text = @"";
+        self.recipeSearchTextField.enabled = false;
+    }else{
+        self.recipeSearchTextField.enabled = true;
+    }
+
     [self requestRecipes];
 }
 
 - (void)requestRecipes{
-    if([_selectedCategoyItems count] == 0){
-        [[RecipeModel instance] getListByCategory:@"10" pageIndex:_pageIndex];
-    }else{
-        for(RecipeCategory* recipeCategory in _selectedCategoyItems){
-            [[RecipeModel instance] getListByCategory: recipeCategory.ID pageIndex:_pageIndex] ;
+    
+    if([_selectedCategoryItems count] == 0){
+        if(![self.recipeSearchTextField.text isEqualToString:@""]){
+            [[RecipeModel instance] getByName:self.recipeSearchTextField.text];
+        }else{
+            [[RecipeModel instance] getListByCategory:@"10" pageIndex:_pageIndex];
         }
+    }else{
+        if([self.recipeSearchTextField.text isEqualToString:@""]){
+            for(RecipeCategory* recipeCategory in _selectedCategoryItems){
+                [[RecipeModel instance] getListByCategory: recipeCategory.ID pageIndex:_pageIndex] ;
+            }
+        }else{
+//        todo: Search recipe name in selected recipe categories. The server needs to add one API for this.
+        }
+       
     }
 }
 
 
 - (void)registerObserver{
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshRecipes:) name:RecipeModelRecipeListUpdate object:nil];
-    //    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshRecipes) name:RecipeModelRecipeUpdate object:nil];
+}
+- (IBAction)recipeSearchTextFieldChanged:(UITextField *)sender {
+    self.recipeSearchTextFieldChanged = true;
+}
+
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField{
+    [self.recipeSearchTextField resignFirstResponder];
+    if(self.recipeSearchTextField.text){
+        [self initViewModel];
+    }
+    self.recipeSearchTextFieldChanged = false;
+    return true;
 }
 
 - (void)refreshRecipes: (NSNotification *) notification{
@@ -121,7 +156,7 @@
 }
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath{
-    if(indexPath.row == [_recipes count] -1){
+    if(indexPath.row == [_recipes count] -1 && [self.recipeSearchTextField.text isEqualToString:@""]){
         _pageIndex ++;
         [self requestRecipes];
     }
@@ -129,7 +164,7 @@
 }
 
 - (void)setSelectedCategories:(NSArray<RecipeCategory *> *)selectedCategories{
-    [_selectedCategoyItems addObjectsFromArray:selectedCategories];
+    [_selectedCategoryItems addObjectsFromArray:selectedCategories];
     [self updateRecipeCategoryTopMargin:selectedCategories];
     [self updateSelectedCategoryStackView];
     [self initViewModel];
@@ -146,7 +181,7 @@
     }else{
         _recipeTableViewTopConstraint.constant = -30;
     }
-    _selectedCategoyItems = [NSMutableArray arrayWithArray:selectedCategories];
+    _selectedCategoryItems = [NSMutableArray arrayWithArray:selectedCategories];
     
 }
 
@@ -157,7 +192,7 @@
         
     }
     NSInteger width = 0;
-    for (RecipeCategory* recipeCategory in self.selectedCategoyItems){
+    for (RecipeCategory* recipeCategory in self.selectedCategoryItems){
         
         NSArray<UIView *> *views = [[NSBundle mainBundle] loadNibNamed:@"RecipeCategoryFilterView" owner:self options:nil];
         UIView *view = [views objectAtIndex:0];
@@ -182,7 +217,7 @@
 -(void) handleLongPress:(UILongPressGestureRecognizer*) gusterReconginze{
     if (gusterReconginze.state == UIGestureRecognizerStateBegan) {
         NSLog(@"filter long pressed ");
-        if(self.selectedCategoyItems != nil){
+        if(self.selectedCategoryItems != nil){
             self.editSelectedCategories = true;
         }
         [self updateSelectedCategoryStackView];
@@ -201,7 +236,7 @@
             }
         }
         if(removeIndex >= 0){
-            [self.selectedCategoyItems removeObjectAtIndex: removeIndex];
+            [self.selectedCategoryItems removeObjectAtIndex: removeIndex];
             [self updateSelectedCategoryStackView];
         }
     }
@@ -210,7 +245,6 @@
 -(void)cancleEditSelectedCategory:(UITapGestureRecognizer*) tapGesture{
     if(self.editSelectedCategories){
         self.editSelectedCategories = false;
-        //        [self setSelectedCategories:self.selectedCategoyItems];
         [self updateSelectedCategoryStackView];
         [self initViewModel];
     }
@@ -229,7 +263,7 @@
     self.editSelectedCategories = false;
     if([segue.identifier isEqualToString:@"showRecipeCategory"] ){
         [(RecipeCategoryTableViewController *)[segue destinationViewController] setDelegate:self];
-        [(RecipeCategoryTableViewController *)[segue destinationViewController] setCheckedCategories: self.selectedCategoyItems];
+        [(RecipeCategoryTableViewController *)[segue destinationViewController] setCheckedCategories: self.selectedCategoryItems];
     }else if([segue.identifier isEqualToString:@"showRecipeDetail"]){
         [(RecipeDetailViewController *)segue.destinationViewController setData:_selectedRecipe];
     }
