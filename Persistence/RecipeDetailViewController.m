@@ -15,6 +15,7 @@
 @property(nonatomic, readonly) Recipe *recipe;
 @property (weak, nonatomic) IBOutlet UIImageView *recipeImageView;
 @property (weak, nonatomic) IBOutlet UIWebView *recipeWebView;
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *recipeDetailLoadIndicator;
 
 @end
 
@@ -49,8 +50,12 @@
 -(void)refreshRecipe:(NSNotification *) notification{
     Recipe *recipe = notification.userInfo[@"recipeObj"];
     _recipe = recipe;
+    [_recipeWebView setDelegate:self];
     [_recipeWebView loadHTMLString:recipe.steps baseURL:nil];
+}
 
+-(void)webViewDidFinishLoad:(UIWebView *)webView{
+    [self.recipeDetailLoadIndicator stopAnimating];
 }
 
 /*

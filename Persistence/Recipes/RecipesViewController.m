@@ -27,6 +27,8 @@
 @property (weak, nonatomic) IBOutlet UITextField *recipeSearchTextField;
 @property (nonatomic) BOOL recipeSearchTextFieldChanged;
 
+@property (weak, nonatomic) IBOutlet UILabel *emptyRecipeNoteLabel;
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *recipeLoadIndicator;
 
 @end
 
@@ -77,6 +79,7 @@
         self.recipeSearchTextField.enabled = true;
     }
 
+    [self.recipeLoadIndicator startAnimating];
     [self requestRecipes];
 }
 
@@ -119,9 +122,17 @@
 }
 
 - (void)refreshRecipes: (NSNotification *) notification{
+    [self.recipeLoadIndicator stopAnimating];
     [_recipes addObjectsFromArray: notification.userInfo[@"recipeObj"]];
     if(_recipes){
         [_recipeTable reloadData];
+        if([_recipes count] > 0){
+            self.emptyRecipeNoteLabel.hidden = true;
+            _recipeTable.hidden = false;
+        }else{
+            self.emptyRecipeNoteLabel.hidden = false;
+            _recipeTable.hidden = true;
+        }
     }
 }
 
@@ -143,6 +154,7 @@
     
     return cell;
 }
+
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     return 80.0;
@@ -250,9 +262,6 @@
         [self initViewModel];
     }
 }
-
-
-
 
 
 #pragma mark - Navigation
