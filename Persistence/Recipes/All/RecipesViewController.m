@@ -15,6 +15,9 @@
 
 
 @interface RecipesViewController ()
+
+@property(nonatomic) RecipeTableViewDelegateImpl *recipeTableViewDelegateImpl;
+
 @property (nonatomic, readonly)  NSMutableArray<Recipe *> *recipes;;
 @property (weak, nonatomic) IBOutlet UITableView *recipeTable;
 @property (weak, nonatomic) IBOutlet UIStackView *selectedCategoryStack;
@@ -22,7 +25,7 @@
 @property (nonatomic) NSMutableArray<RecipeCategory *> *selectedCategoryItems;
 @property (nonatomic) BOOL editSelectedCategories;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *recipeTableViewTopConstraint;
-@property (weak, nonatomic, readonly) Recipe *selectedRecipe;
+@property (nonatomic, readonly) Recipe *selectedRecipe;
 @property (nonatomic, readonly) NSInteger pageIndex;
 @property (weak, nonatomic) IBOutlet UITextField *recipeSearchTextField;
 @property (nonatomic) BOOL recipeSearchTextFieldChanged;
@@ -36,6 +39,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
     _editSelectedCategories = false;
     _recipes = [NSMutableArray new];
     _pageIndex = 1;
@@ -51,15 +55,8 @@
     [_recipeSearchTextField setDelegate: self];
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
 
 - (void)setup{
-    _recipeTable.dataSource = self;
-    _recipeTable.delegate = self;
-    _recipeTable.userInteractionEnabled = true;
     [self registerObserver];
     
     UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector( cancleEditSelectedCategory:) ];
@@ -78,7 +75,7 @@
     }else{
         self.recipeSearchTextField.enabled = true;
     }
-
+    
     [self.recipeLoadIndicator startAnimating];
     [self requestRecipes];
 }
@@ -97,12 +94,11 @@
                 [[RecipeModel instance] getListByCategory: recipeCategory.ID pageIndex:_pageIndex] ;
             }
         }else{
-//        todo: Search recipe name in selected recipe categories. The server needs to add one API for this.
+            //        todo: Search recipe name in selected recipe categories. The server needs to add one API for this.
         }
-       
+        
     }
 }
-
 
 - (void)registerObserver{
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshRecipes:) name:RecipeModelRecipeListUpdate object:nil];
@@ -124,6 +120,7 @@
 - (void)refreshRecipes: (NSNotification *) notification{
     [self.recipeLoadIndicator stopAnimating];
     [_recipes addObjectsFromArray: notification.userInfo[@"recipeObj"]];
+    
     if(_recipes){
         [_recipeTable reloadData];
         if([_recipes count] > 0){
@@ -134,47 +131,26 @@
             _recipeTable.hidden = true;
         }
     }
-}
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return [self.recipes count];
-}
-
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    RecipeCellView *cell = [tableView dequeueReusableCellWithIdentifier:@"recipeCell"];
-    if(cell == nil){
-        [tableView registerNib:[UINib nibWithNibName:@"RecipeItem" bundle:nil] forCellReuseIdentifier:@"recipeCell"];
-        cell = [tableView dequeueReusableCellWithIdentifier:@"recipeCell"];
-    }
     
-    Recipe* recipe = [self.recipes objectAtIndex:indexPath.row];
-    RecipeCellViewModel *recipeCellViewModel = [[RecipeCellViewModel recipeCellViewModelWithNameImage:[NSString stringWithFormat:@"%@", recipe.name] imageUrl:recipe.imageUrl] initWithFoods:recipe.foods];
-    [cell setData:recipeCellViewModel];
-    
-    return cell;
+    self.recipeTableViewDelegateImpl = [[RecipeTableViewDelegateImpl new] initWithData: self.recipes pageIndex:self.pageIndex];
+    [self.recipeTableViewDelegateImpl setAutoLoadMore:true];
+    [self.recipeTableViewDelegateImpl setControllerDelegate:self];
+    [self.recipeTable setDelegate: self.recipeTableViewDelegateImpl];
+    [self.recipeTable setDataSource: self.recipeTableViewDelegateImpl];
 }
 
-
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return 80.0;
+-(void)loadMoreRecipe:(NSInteger)pageIndex{
+    _pageIndex = pageIndex;
+    [self requestRecipes];
 }
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    if(_recipes && [_recipes count] >= indexPath.row){
-        _selectedRecipe = [self.recipes objectAtIndex:indexPath.row];
+-(void)showRecipeDetail:(Recipe *)recipe{
+    if(recipe){
+        _selectedRecipe = [recipe copy];
         [self performSegueWithIdentifier:@"showRecipeDetail" sender:self];
     }
 }
 
-- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath{
-//todo: measure how many rows can be displayed on the screen at one time.
-    if(indexPath.row >= 7 && indexPath.row == [_recipes count] -1 && [self.recipeSearchTextField.text isEqualToString:@""]){
-        _pageIndex ++;
-        [self requestRecipes];
-    }
-    
-}
 
 - (void)setSelectedCategories:(NSArray<RecipeCategory *> *)selectedCategories{
     _selectedCategoryItems = [NSMutableArray arrayWithArray:selectedCategories];
@@ -236,6 +212,7 @@
     }
     
 }
+
 -(void)removeCategoryGesture:(UITapGestureRecognizer*) tapGesture{
     
     if(self.editSelectedCategories){
@@ -265,7 +242,6 @@
         [self initViewModel];
     }
 }
-
 
 #pragma mark - Navigation
 

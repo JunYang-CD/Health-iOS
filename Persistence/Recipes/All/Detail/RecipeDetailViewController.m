@@ -26,7 +26,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     if(_recipe){
-        [_recipeImageView sd_setImageWithURL:[NSURL URLWithString:_recipe.imageUrl] placeholderImage:[UIImage imageNamed:@"main-dishes"]];
+        [self.recipeImageView sd_setImageWithURL:[NSURL URLWithString:_recipe.imageUrl] placeholderImage:[UIImage imageNamed:@"main-dishes"]];
     }
     UIBarButtonItem *topRightbtn = [[UIBarButtonItem alloc]
                                     initWithTitle:@"More"
@@ -57,7 +57,6 @@
 
 -(void)refreshRecipe:(NSNotification *) notification{
     Recipe *recipe = notification.userInfo[@"recipeObj"];
-    _recipe = recipe;
     [_recipeWebView setDelegate:self];
     [_recipeWebView loadHTMLString:recipe.steps baseURL:nil];
 }

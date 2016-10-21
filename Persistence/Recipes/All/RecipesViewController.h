@@ -8,7 +8,8 @@
 
 #import <UIKit/UIKit.h>
 #import "RecipeCategoryTableViewController.h"
+#import "RecipeTableViewDelegateImpl.h"
 
-@interface RecipesViewController : UIViewController<UITableViewDelegate, UITableViewDataSource, SelectedCategory, UITextFieldDelegate>
+@interface RecipesViewController : UIViewController<RecipeTableViewDelegateImplDeleate, SelectedCategory, UITextFieldDelegate>
 
 @end

@@ -34,19 +34,24 @@
 +(NSDictionary *)JSONKeyPathsByPropertyKey{
     return
     @{
-        @"name":@"name",
-        @"imageUrl":@"img",
-        @"foods":@"food",
-        @"steps":@"message",
-        @"keywords":@"keywords",
-        @"ID":@"id"
+      @"name":@"name",
+      @"imageUrl":@"img",
+      @"foods":@"food",
+      @"steps":@"message",
+      @"keywords":@"keywords",
+      @"ID":@"id"
       };
 }
 
 -(NSString*) imageUrl{
-    NSMutableString *url = [NSMutableString stringWithString: RecipeImagePrefix];
-    [url appendString: _imageUrl];
-    return url;
+    if(_imageUrl){
+        if(! [_imageUrl containsString:RecipeImagePrefix]){
+            NSMutableString *url = [NSMutableString stringWithString: RecipeImagePrefix];
+            [url appendString: _imageUrl];
+            return url;
+        }
+    }
+    return _imageUrl;
 }
 
 -(instancetype)initWithRecipeReamObj:(RecipeRealmObject *)recipeRealmObj{
@@ -68,7 +73,7 @@
     return
     @{
       @"recipes":@"tngou"
-//      @"recipe":@""
+      //      @"recipe":@""
       };
 }
 + (NSValueTransformer *)recipesJSONTransformer {
