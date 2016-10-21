@@ -8,7 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		751DE530E8EFBEFED56AC6B4 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 662BED332C39A7709A82CE05 /* Pods.framework */; };
-		C458A4031DBA5BE5003A74E6 /* RecipeTableViewDelegateImpl.m in Sources */ = {isa = PBXBuildFile; fileRef = C458A4021DBA5BE5003A74E6 /* RecipeTableViewDelegateImpl.m */; };
+		C458A4071DBA79DD003A74E6 /* RecipeFavViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C458A4061DBA79DD003A74E6 /* RecipeFavViewController.m */; };
+		C458A40C1DBA7A43003A74E6 /* RecipeTableViewDelegateImpl.m in Sources */ = {isa = PBXBuildFile; fileRef = C458A40B1DBA7A43003A74E6 /* RecipeTableViewDelegateImpl.m */; };
 		C4CB65C81D9B878C00E78B1D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C4CB65C71D9B878C00E78B1D /* main.m */; };
 		C4CB65CB1D9B878C00E78B1D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C4CB65CA1D9B878C00E78B1D /* AppDelegate.m */; };
 		C4CB65CE1D9B878C00E78B1D /* FirstViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C4CB65CD1D9B878C00E78B1D /* FirstViewController.m */; };
@@ -64,8 +65,10 @@
 		4D9BBD030BEBF8B9764297C1 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		662BED332C39A7709A82CE05 /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BECE633D90F6E7EA65D70E13 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
-		C458A4011DBA5BE5003A74E6 /* RecipeTableViewDelegateImpl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RecipeTableViewDelegateImpl.h; path = Recipes/Views/RecipeTableViewDelegateImpl.h; sourceTree = "<group>"; };
-		C458A4021DBA5BE5003A74E6 /* RecipeTableViewDelegateImpl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RecipeTableViewDelegateImpl.m; path = Recipes/Views/RecipeTableViewDelegateImpl.m; sourceTree = "<group>"; };
+		C458A4051DBA79DD003A74E6 /* RecipeFavViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RecipeFavViewController.h; path = Recipes/Fav/RecipeFavViewController.h; sourceTree = "<group>"; };
+		C458A4061DBA79DD003A74E6 /* RecipeFavViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RecipeFavViewController.m; path = Recipes/Fav/RecipeFavViewController.m; sourceTree = "<group>"; };
+		C458A40A1DBA7A43003A74E6 /* RecipeTableViewDelegateImpl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RecipeTableViewDelegateImpl.h; path = Recipes/ViewDelegates/RecipeTableViewDelegateImpl.h; sourceTree = "<group>"; };
+		C458A40B1DBA7A43003A74E6 /* RecipeTableViewDelegateImpl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RecipeTableViewDelegateImpl.m; path = Recipes/ViewDelegates/RecipeTableViewDelegateImpl.m; sourceTree = "<group>"; };
 		C4CB65C31D9B878C00E78B1D /* Persistence.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Persistence.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C4CB65C71D9B878C00E78B1D /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		C4CB65C91D9B878C00E78B1D /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -174,10 +177,19 @@
 		C458A4041DBA5C06003A74E6 /* ViewDelegates */ = {
 			isa = PBXGroup;
 			children = (
-				C458A4011DBA5BE5003A74E6 /* RecipeTableViewDelegateImpl.h */,
-				C458A4021DBA5BE5003A74E6 /* RecipeTableViewDelegateImpl.m */,
+				C458A40A1DBA7A43003A74E6 /* RecipeTableViewDelegateImpl.h */,
+				C458A40B1DBA7A43003A74E6 /* RecipeTableViewDelegateImpl.m */,
 			);
 			name = ViewDelegates;
+			sourceTree = "<group>";
+		};
+		C458A4091DBA79F1003A74E6 /* Fav */ = {
+			isa = PBXGroup;
+			children = (
+				C458A4051DBA79DD003A74E6 /* RecipeFavViewController.h */,
+				C458A4061DBA79DD003A74E6 /* RecipeFavViewController.m */,
+			);
+			name = Fav;
 			sourceTree = "<group>";
 		};
 		C47DB0D61DACD35A001B1CB7 /* Category */ = {
@@ -325,6 +337,7 @@
 				C458A4041DBA5C06003A74E6 /* ViewDelegates */,
 				C4CDF1741DBA05FF00ABE525 /* All */,
 				C47DB0F01DAF8CD1001B1CB7 /* CoreData */,
+				C458A4091DBA79F1003A74E6 /* Fav */,
 			);
 			name = Recipes;
 			sourceTree = "<group>";
@@ -534,6 +547,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C458A40C1DBA7A43003A74E6 /* RecipeTableViewDelegateImpl.m in Sources */,
+				C458A4071DBA79DD003A74E6 /* RecipeFavViewController.m in Sources */,
 				C4CDF1931DBA0A8400ABE525 /* RecipeCategoryViewModel.m in Sources */,
 				C4CDF1781DBA0A4500ABE525 /* PSServerRegistry.m in Sources */,
 				C4CDF19E1DBA0B2400ABE525 /* RecipesViewController.m in Sources */,
@@ -553,7 +568,6 @@
 				C4D254BD1DA8C81D00DEE567 /* RecipeModel.m in Sources */,
 				C4CB65CE1D9B878C00E78B1D /* FirstViewController.m in Sources */,
 				C4CDF1911DBA0A8400ABE525 /* RecipeCategorySectionHeaderView.m in Sources */,
-				C458A4031DBA5BE5003A74E6 /* RecipeTableViewDelegateImpl.m in Sources */,
 				C4D254C51DA8C85000DEE567 /* NetworkServer.m in Sources */,
 				C4CB65C81D9B878C00E78B1D /* main.m in Sources */,
 				C4CDF17D1DBA0A7300ABE525 /* RecipeDetailMoreViewController.m in Sources */,

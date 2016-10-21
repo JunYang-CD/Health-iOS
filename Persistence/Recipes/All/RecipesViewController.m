@@ -145,7 +145,7 @@
 }
 
 -(void)showRecipeDetail:(Recipe *)recipe{
-    if(recipe){
+    if(recipe && !self.editSelectedCategories){
         _selectedRecipe = [recipe copy];
         [self performSegueWithIdentifier:@"showRecipeDetail" sender:self];
     }

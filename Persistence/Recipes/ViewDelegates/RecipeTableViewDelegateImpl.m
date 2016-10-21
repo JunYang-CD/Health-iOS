@@ -43,7 +43,7 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    if(_recipes && [_recipes count] >= indexPath.row){
+    if(_recipes && [_recipes count] > indexPath.row){
         Recipe *selectedRecipe = [self.recipes objectAtIndex:indexPath.row];
         if(self.controllerDelegate){
             [self.controllerDelegate showRecipeDetail: selectedRecipe];
