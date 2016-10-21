@@ -9,6 +9,7 @@
 #import "RecipeFavViewController.h"
 
 @interface RecipeFavViewController ()
+@property (weak, nonatomic) IBOutlet UITableView *RecipeFavTableView;
 
 @end
 

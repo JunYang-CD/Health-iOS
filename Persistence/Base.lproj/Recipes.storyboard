@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15G1004" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Mo5-Lw-uoX">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15G1004" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -7,10 +7,10 @@
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
-        <!--Recipes-->
+        <!--All-->
         <scene sceneID="Iby-TM-vGs">
             <objects>
-                <viewController id="xmF-yD-Ql3" customClass="RecipesViewController" sceneMemberID="viewController">
+                <viewController id="xmF-yD-Ql3" userLabel="All" customClass="RecipesViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="TiI-ow-vzS"/>
                         <viewControllerLayoutGuide type="bottom" id="uz2-Si-5AW"/>
@@ -137,6 +137,89 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MtO-33-6bZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2228" y="1299"/>
+        </scene>
+        <!--RecipeFavNavController-->
+        <scene sceneID="axa-Si-gVE">
+            <objects>
+                <navigationController storyboardIdentifier="RecipeFavViewController" title="RecipeFavNavController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="KB9-Cp-XaX" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Favorate" image="first" id="CdZ-c9-BDx" userLabel="RecipeFav"/>
+                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="adM-Xw-93C">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="barTintColor" red="0.0" green="0.49019607840000001" blue="0.72941176470000002" alpha="1" colorSpace="calibratedRGB"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="Pr3-gn-KAA" kind="relationship" relationship="rootViewController" id="vup-Zz-Xad"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="DLc-Ue-zGs" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1578" y="3071"/>
+        </scene>
+        <!--Favorate-->
+        <scene sceneID="6gL-nJ-lfS">
+            <objects>
+                <viewController title="Favorate" id="Pr3-gn-KAA" customClass="RecipeFavViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="kVz-fW-2Wo"/>
+                        <viewControllerLayoutGuide type="bottom" id="9HW-fE-fMz"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="6gH-uo-3mx">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sLa-Eq-DbN">
+                                <rect key="frame" x="20" y="64" width="560" height="487"/>
+                                <subviews>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="iDh-GO-dH5">
+                                        <rect key="frame" x="0.0" y="10" width="560" height="30"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="L7G-qw-z62">
+                                        <rect key="frame" x="0.0" y="60" width="560" height="427"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    </tableView>
+                                </subviews>
+                                <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="L7G-qw-z62" secondAttribute="bottom" id="3uc-0I-BTg"/>
+                                    <constraint firstAttribute="trailing" secondItem="L7G-qw-z62" secondAttribute="trailing" id="MDq-aa-9sq"/>
+                                    <constraint firstItem="L7G-qw-z62" firstAttribute="leading" secondItem="sLa-Eq-DbN" secondAttribute="leading" id="bvD-TF-7dk"/>
+                                    <constraint firstItem="iDh-GO-dH5" firstAttribute="top" secondItem="sLa-Eq-DbN" secondAttribute="top" constant="10" id="g0B-xK-mGE"/>
+                                    <constraint firstItem="L7G-qw-z62" firstAttribute="top" secondItem="iDh-GO-dH5" secondAttribute="bottom" constant="20" id="jVr-JQ-s3x"/>
+                                    <constraint firstItem="iDh-GO-dH5" firstAttribute="leading" secondItem="sLa-Eq-DbN" secondAttribute="leading" id="ycu-dq-5F8"/>
+                                    <constraint firstAttribute="trailing" secondItem="iDh-GO-dH5" secondAttribute="trailing" id="zPG-Y0-YVU"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="sLa-Eq-DbN" firstAttribute="centerY" secondItem="6gH-uo-3mx" secondAttribute="centerY" id="0pQ-qp-e4o"/>
+                            <constraint firstItem="sLa-Eq-DbN" firstAttribute="leading" secondItem="6gH-uo-3mx" secondAttribute="leadingMargin" id="AJd-0J-INQ"/>
+                            <constraint firstItem="9HW-fE-fMz" firstAttribute="top" secondItem="sLa-Eq-DbN" secondAttribute="bottom" id="JqH-Y8-bbz"/>
+                            <constraint firstAttribute="leadingMargin" secondItem="sLa-Eq-DbN" secondAttribute="leading" constant="10" id="hFs-m8-KNC"/>
+                            <constraint firstItem="sLa-Eq-DbN" firstAttribute="top" secondItem="kVz-fW-2Wo" secondAttribute="bottom" id="mgN-AF-x90"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="sLa-Eq-DbN" secondAttribute="trailing" id="pWb-HW-U8c"/>
+                            <constraint firstItem="sLa-Eq-DbN" firstAttribute="centerX" secondItem="6gH-uo-3mx" secondAttribute="centerX" id="x3f-Yd-4tS"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="0pQ-qp-e4o"/>
+                                <exclude reference="hFs-m8-KNC"/>
+                                <exclude reference="x3f-Yd-4tS"/>
+                            </mask>
+                        </variation>
+                    </view>
+                    <navigationItem key="navigationItem" title="Recipes" id="gnU-Bo-vqt"/>
+                    <connections>
+                        <outlet property="RecipeFavTableView" destination="L7G-qw-z62" id="UNy-5L-MtH"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="BlA-i6-r0e" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2246" y="3071"/>
         </scene>
         <!--Recipe Detail View Controller-->
         <scene sceneID="nL2-vc-QPo">
@@ -347,11 +430,11 @@
             </objects>
             <point key="canvasLocation" x="3086" y="1299"/>
         </scene>
-        <!--Goal-->
+        <!--RecipeAllNavController-->
         <scene sceneID="hL2-jI-gGu">
             <objects>
-                <navigationController title="Goal" automaticallyAdjustsScrollViewInsets="NO" id="Mo5-Lw-uoX" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Recipes" image="first" id="z00-A3-MX2"/>
+                <navigationController storyboardIdentifier="recipeAllViewController" title="RecipeAllNavController" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Mo5-Lw-uoX" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="All" image="first" id="z00-A3-MX2"/>
                     <toolbarItems/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics">
                         <color key="barTintColor" red="0.0" green="0.49019607840000001" blue="0.72941176470000002" alpha="1" colorSpace="calibratedRGB"/>
@@ -368,7 +451,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Cvl-aM-PGO" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1552" y="1299"/>
+            <point key="canvasLocation" x="1554" y="1311"/>
         </scene>
     </scenes>
     <resources>
