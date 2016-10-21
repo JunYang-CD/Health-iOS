@@ -25,7 +25,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     if(_recipe){
-        [_recipeImageView sd_setImageWithURL:[NSURL URLWithString:_recipe.imageUrl] placeholderImage:[UIImage imageNamed:@"first"]];
+        [_recipeImageView sd_setImageWithURL:[NSURL URLWithString:_recipe.imageUrl] placeholderImage:[UIImage imageNamed:@"main-dishes"]];
     }
 }
 

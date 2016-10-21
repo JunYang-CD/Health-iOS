@@ -25,7 +25,7 @@
     
     
     [self.image sd_setImageWithURL:[NSURL URLWithString:model.imageUrl]
-                 placeholderImage:[UIImage imageNamed:@"first"]];
+                 placeholderImage:[UIImage imageNamed:@"main-dishes"]];
 
 }
 
