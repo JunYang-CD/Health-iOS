@@ -177,15 +177,15 @@
 }
 
 - (void)setSelectedCategories:(NSArray<RecipeCategory *> *)selectedCategories{
-    [_selectedCategoryItems addObjectsFromArray:selectedCategories];
-    [self updateRecipeCategoryTopMargin:selectedCategories];
+    _selectedCategoryItems = [NSMutableArray arrayWithArray:selectedCategories];
+    [self updateRecipeCategoryTopMargin];
     [self updateSelectedCategoryStackView];
     [self initViewModel];
     
 }
 
-- (void) updateRecipeCategoryTopMargin:(NSArray<RecipeCategory *> *)selectedCategories{
-    if ([selectedCategories count] > 0){
+- (void) updateRecipeCategoryTopMargin{
+    if ([_selectedCategoryItems count] > 0){
         if(self.editSelectedCategories){
             _recipeTableViewTopConstraint.constant = 30;
         }else{
@@ -194,7 +194,6 @@
     }else{
         _recipeTableViewTopConstraint.constant = -30;
     }
-    _selectedCategoryItems = [NSMutableArray arrayWithArray:selectedCategories];
     
 }
 
@@ -251,6 +250,9 @@
         if(removeIndex >= 0){
             [self.selectedCategoryItems removeObjectAtIndex: removeIndex];
             [self updateSelectedCategoryStackView];
+            if([self.selectedCategoryItems count] == 0){
+                [self cancleEditSelectedCategory: nil];
+            }
         }
     }
 }
@@ -259,6 +261,7 @@
     if(self.editSelectedCategories){
         self.editSelectedCategories = false;
         [self updateSelectedCategoryStackView];
+        [self updateRecipeCategoryTopMargin];
         [self initViewModel];
     }
 }
