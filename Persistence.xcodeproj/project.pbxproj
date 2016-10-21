@@ -28,6 +28,7 @@
 		C4CB66091D9BA50900E78B1D /* MainTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = C4CB66081D9BA50900E78B1D /* MainTabBarController.m */; };
 		C4CB66181D9CB73000E78B1D /* Recipes.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C4CB66161D9CB73000E78B1D /* Recipes.storyboard */; };
 		C4CB661C1D9CC35100E78B1D /* RecipeItem.xib in Resources */ = {isa = PBXBuildFile; fileRef = C4CB661B1D9CC35100E78B1D /* RecipeItem.xib */; };
+		C4CDF16F1DB9F69600ABE525 /* RecipeDetailMoreViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C4CDF16E1DB9F69600ABE525 /* RecipeDetailMoreViewController.m */; };
 		C4D254AE1DA8C7DA00DEE567 /* UIColor+PS.m in Sources */ = {isa = PBXBuildFile; fileRef = C4D254AD1DA8C7DA00DEE567 /* UIColor+PS.m */; };
 		C4D254BA1DA8C81D00DEE567 /* Recipe.m in Sources */ = {isa = PBXBuildFile; fileRef = C4D254B11DA8C81D00DEE567 /* Recipe.m */; };
 		C4D254BB1DA8C81D00DEE567 /* RecipeCellView.m in Sources */ = {isa = PBXBuildFile; fileRef = C4D254B31DA8C81D00DEE567 /* RecipeCellView.m */; };
@@ -97,6 +98,8 @@
 		C4CB66081D9BA50900E78B1D /* MainTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainTabBarController.m; sourceTree = "<group>"; };
 		C4CB66171D9CB73000E78B1D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Recipes.storyboard; sourceTree = "<group>"; };
 		C4CB661B1D9CC35100E78B1D /* RecipeItem.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = RecipeItem.xib; path = ../RecipeItem.xib; sourceTree = "<group>"; };
+		C4CDF16D1DB9F69600ABE525 /* RecipeDetailMoreViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RecipeDetailMoreViewController.h; path = Detail/RecipeDetailMoreViewController.h; sourceTree = "<group>"; };
+		C4CDF16E1DB9F69600ABE525 /* RecipeDetailMoreViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RecipeDetailMoreViewController.m; path = Detail/RecipeDetailMoreViewController.m; sourceTree = "<group>"; };
 		C4D254AC1DA8C7DA00DEE567 /* UIColor+PS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIColor+PS.h"; path = "Categories/UIColor+PS.h"; sourceTree = "<group>"; };
 		C4D254AD1DA8C7DA00DEE567 /* UIColor+PS.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIColor+PS.m"; path = "Categories/UIColor+PS.m"; sourceTree = "<group>"; };
 		C4D254B01DA8C81D00DEE567 /* Recipe.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Recipe.h; path = Recipes/Recipe.h; sourceTree = "<group>"; };
@@ -261,6 +264,17 @@
 			path = PersistenceUITests;
 			sourceTree = "<group>";
 		};
+		C4CDF1701DB9F69E00ABE525 /* Detail */ = {
+			isa = PBXGroup;
+			children = (
+				C4CDF16D1DB9F69600ABE525 /* RecipeDetailMoreViewController.h */,
+				C4CDF16E1DB9F69600ABE525 /* RecipeDetailMoreViewController.m */,
+				C47DB0F91DB5FE8F001B1CB7 /* RecipeDetailViewController.h */,
+				C47DB0FA1DB5FE8F001B1CB7 /* RecipeDetailViewController.m */,
+			);
+			name = Detail;
+			sourceTree = "<group>";
+		};
 		C4D254AB1DA8C7C600DEE567 /* Categories */ = {
 			isa = PBXGroup;
 			children = (
@@ -273,6 +287,7 @@
 		C4D254AF1DA8C80B00DEE567 /* Recipes */ = {
 			isa = PBXGroup;
 			children = (
+				C4CDF1701DB9F69E00ABE525 /* Detail */,
 				C4CB661B1D9CC35100E78B1D /* RecipeItem.xib */,
 				C4D254B01DA8C81D00DEE567 /* Recipe.h */,
 				C4D254B11DA8C81D00DEE567 /* Recipe.m */,
@@ -287,8 +302,6 @@
 				C4D254D01DA9E4A400DEE567 /* RecipeCategory.h */,
 				C4D254D11DA9E4A400DEE567 /* RecipeCategory.m */,
 				C47DB0F31DB11FF2001B1CB7 /* RecipeCategoryFilterView.xib */,
-				C47DB0F91DB5FE8F001B1CB7 /* RecipeDetailViewController.h */,
-				C47DB0FA1DB5FE8F001B1CB7 /* RecipeDetailViewController.m */,
 				C47DB0D61DACD35A001B1CB7 /* Category */,
 				C47DB0F01DAF8CD1001B1CB7 /* CoreData */,
 			);
@@ -516,6 +529,7 @@
 				C4CB65CE1D9B878C00E78B1D /* FirstViewController.m in Sources */,
 				C4D254BB1DA8C81D00DEE567 /* RecipeCellView.m in Sources */,
 				C4D254BC1DA8C81D00DEE567 /* RecipeCellViewModel.m in Sources */,
+				C4CDF16F1DB9F69600ABE525 /* RecipeDetailMoreViewController.m in Sources */,
 				C4D254CF1DA8E0BA00DEE567 /* PSServerRegistry.m in Sources */,
 				C47DB0D91DACD63C001B1CB7 /* RecipeCategoryTableViewController.m in Sources */,
 				C4D254C51DA8C85000DEE567 /* NetworkServer.m in Sources */,

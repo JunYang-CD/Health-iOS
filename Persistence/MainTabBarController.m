@@ -37,6 +37,7 @@
                                              forState:UIControlStateSelected];
     [[UITabBarItem appearance] setTitleTextAttributes:@{ NSForegroundColorAttributeName: _unSelectedColor}
                                              forState: UIControlStateNormal];
+    [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
     
     
 }

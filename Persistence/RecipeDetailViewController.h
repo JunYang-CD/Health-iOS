@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "Recipe.h"
 
-@interface RecipeDetailViewController : UIViewController<UIWebViewDelegate>
+@interface RecipeDetailViewController : UIViewController<UIWebViewDelegate, UIPopoverPresentationControllerDelegate>
 
 -(void) setData:(Recipe *) recipeCategory;
 @end

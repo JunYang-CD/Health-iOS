@@ -34,6 +34,10 @@
     if(!collapse){
         _collapseExpandBtn.transform = CGAffineTransformMakeRotation(DEGREES_TO_RADIANS(180.0));
     }
+    
+    UITapGestureRecognizer *tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(toggleSectionHeader:)];
+    [_sectionHeaderName addGestureRecognizer: tapGestureRecognizer];
+    [_sectionHeaderName setUserInteractionEnabled:true];
 }
 - (IBAction)toggleSectionHeader:(UIButton *)sender {
     [[NSNotificationCenter defaultCenter] postNotificationName:@"collapseExpandSection" object:self userInfo:@{@"sectionIndex":[NSNumber numberWithInteger:self.sectionIndex]}];    

@@ -9,6 +9,7 @@
 #import "RecipeDetailViewController.h"
 #import <SDWebImage/UIImageView+WebCache.h>
 #import "RecipeModel.h"
+#import "RecipeDetailMoreViewController.h"
 
 @interface RecipeDetailViewController ()
 
@@ -27,11 +28,18 @@
     if(_recipe){
         [_recipeImageView sd_setImageWithURL:[NSURL URLWithString:_recipe.imageUrl] placeholderImage:[UIImage imageNamed:@"main-dishes"]];
     }
+    UIBarButtonItem *topRightbtn = [[UIBarButtonItem alloc]
+                                    initWithTitle:@"More"
+                                    style:UIBarButtonItemStylePlain
+                                    target:self
+                                    action:@selector(moreActionTriggered)];
+    self.navigationItem.rightBarButtonItem = topRightbtn;
+    
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+
+-(void) moreActionTriggered{
+    [self performSegueWithIdentifier:@"recipeShowMore" sender:self];
 }
 
 -(void)setData:(Recipe *)recipe{
@@ -58,14 +66,24 @@
     [self.recipeDetailLoadIndicator stopAnimating];
 }
 
-/*
- #pragma mark - Navigation
- 
- // In a storyboard-based application, you will often want to do a little preparation before navigation
- - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
- // Get the new view controller using [segue destinationViewController].
- // Pass the selected object to the new view controller.
- }
- */
+
+#pragma mark - Navigation
+
+-(UIModalPresentationStyle)adaptivePresentationStyleForPresentationController:(UIPresentationController *)controller{
+    return UIModalPresentationNone;
+}
+
+// In a storyboard-based application, you will often want to do a little preparation before navigation
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if([[segue identifier] isEqualToString:@"recipeShowMore"]){
+        RecipeDetailMoreViewController *popController = [segue destinationViewController];
+        popController.modalPresentationStyle = UIModalPresentationPopover;
+        [popController.popoverPresentationController setDelegate:self];
+        [popController setRecipe:self.recipe];
+    }
+    
+    
+}
+
 
 @end

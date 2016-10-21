@@ -29,7 +29,7 @@
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
     [self regsiterObserver];
     [self initCategoryViewModel];
-    
+    [self setTitle: @"Category"];    
 }
 
 -(void)viewWillDisappear:(BOOL)animated{
