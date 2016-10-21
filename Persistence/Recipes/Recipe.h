@@ -10,6 +10,7 @@
 #import <Mantle/Mantle.h>
 #import <Realm/RLMObject.h>
 
+@class RecipeRealmObject;
 
 @interface Recipe : MTLModel<MTLJSONSerializing>
 
@@ -20,6 +21,8 @@
 @property (nonatomic, readonly) NSString* keywords;
 @property (nonatomic, readonly) NSString* ID;
 
+-(instancetype)initWithRecipeReamObj:(RecipeRealmObject *)recipeRealmObj;
+
 @end
 
 @interface RecipeRealmObject : RLMObject
@@ -29,9 +32,9 @@
 @property (nonatomic, readonly) NSString* steps;
 @property (nonatomic, readonly) NSString* keywords;
 @property (nonatomic, readonly) NSString* ID;
-@property (nonatomic) NSInteger onPageIndex;
 
--(instancetype) initWithData:(Recipe *) recipe pageIndex: (NSInteger) pageIndex;
+-(instancetype) initWithData:(Recipe *) recipe;
+-(Recipe *)recipeObj;
 @end
 
 

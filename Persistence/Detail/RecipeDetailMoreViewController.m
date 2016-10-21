@@ -7,6 +7,7 @@
 //
 
 #import "RecipeDetailMoreViewController.h"
+#import "RecipeModel.h"
 
 @interface RecipeDetailMoreViewController ()
 @property (weak, nonatomic) IBOutlet UIImageView *addIconVIew;
@@ -43,6 +44,8 @@
 
 -(void) addFavRecipe{
     NSLog(@"add fav recipe");
+    [[RecipeModel instance] persistentFavRecipe:self.recipe];
+    
 }
 
 -(void) shareRecipe{

@@ -287,7 +287,6 @@
 		C4D254AF1DA8C80B00DEE567 /* Recipes */ = {
 			isa = PBXGroup;
 			children = (
-				C4CDF1701DB9F69E00ABE525 /* Detail */,
 				C4CB661B1D9CC35100E78B1D /* RecipeItem.xib */,
 				C4D254B01DA8C81D00DEE567 /* Recipe.h */,
 				C4D254B11DA8C81D00DEE567 /* Recipe.m */,
@@ -302,6 +301,7 @@
 				C4D254D01DA9E4A400DEE567 /* RecipeCategory.h */,
 				C4D254D11DA9E4A400DEE567 /* RecipeCategory.m */,
 				C47DB0F31DB11FF2001B1CB7 /* RecipeCategoryFilterView.xib */,
+				C4CDF1701DB9F69E00ABE525 /* Detail */,
 				C47DB0D61DACD35A001B1CB7 /* Category */,
 				C47DB0F01DAF8CD1001B1CB7 /* CoreData */,
 			);

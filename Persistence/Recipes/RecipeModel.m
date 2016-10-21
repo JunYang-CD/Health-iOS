@@ -98,7 +98,7 @@ NSString *const RecipeModelRecipeSubCategoryUpdate = @"RecipeModelRecipeSubCateg
         }
         
         if(recipes.recipes){
-            [self persistentRecipes:recipes.recipes pageIndex:pageIndex];
+            [self persistentRecipes:recipes.recipes];
             [[NSNotificationCenter defaultCenter] postNotificationName:RecipeModelRecipeListUpdate object:self userInfo:@{@"categoryID": ID, @"recipeObj": recipes.recipes}];
         }
         
@@ -138,21 +138,40 @@ NSString *const RecipeModelRecipeSubCategoryUpdate = @"RecipeModelRecipeSubCateg
 }
 
 
--(void) persistentRecipes:(NSArray<Recipe *> *) recipes pageIndex:(NSInteger)pageIndex{
+-(void) persistentRecipes:(NSArray<Recipe *> *) recipes{
     if(recipes){
         for(Recipe *recipe in recipes){
-            [self persistentRecipe:recipe pageIndex:pageIndex];
+            [self persistentRecipe:recipe];
         }
     }
 }
 
 
--(void) persistentRecipe: (Recipe *) recipe pageIndex:(NSInteger)pageIndex{
+-(void) persistentRecipe: (Recipe *) recipe{
     RLMRealm *realm = [RLMRealm defaultRealm];
-    RecipeRealmObject *recipeRO = [[RecipeRealmObject new] initWithData:recipe pageIndex:pageIndex];
+    [self persistenceRecipe:recipe RLMRealm:realm];
+}
+
+-(void) persistentFavRecipe: (Recipe *) recipe{
+    RLMRealm *realm = [RLMRealm realmWithPath:@"fav_recipe"];
+    [self persistenceRecipe:recipe RLMRealm:realm];
+}
+
+-(void)persistenceRecipe: (Recipe *)recipe RLMRealm:(RLMRealm *) realm{
+    RecipeRealmObject *recipeRO = [[RecipeRealmObject new] initWithData:recipe];
     [realm beginWriteTransaction];
     [realm addObject:recipeRO];
     [realm commitWriteTransaction];
+}
+
+-(NSArray<Recipe *> *) getPersistentFavRecipes{
+    RLMRealm *realm = [RLMRealm realmWithPath:@"fav_recipe"];
+    RLMResults<RecipeRealmObject *> *favRecipes = [RecipeRealmObject allObjects];
+    NSMutableArray<Recipe *> *recipes = [NSMutableArray new];
+    for(RecipeRealmObject *recipeRealmObj in favRecipes){
+        [recipes addObject:recipeRealmObj.recipeObj];
+    }
+    return [recipes copy];
 }
 
 @end

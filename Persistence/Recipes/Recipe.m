@@ -11,17 +11,20 @@
 
 @implementation RecipeRealmObject
 
--(instancetype)initWithData:(Recipe *)recipe pageIndex:(NSInteger) pageIndex{
+-(instancetype)initWithData:(Recipe *)recipe{
     _ID = recipe.ID;
     _name = recipe.name;
     _foods = recipe.foods;
     _imageUrl = recipe.imageUrl;
     _keywords = recipe.keywords;
     _steps = recipe.steps;
-    _onPageIndex = pageIndex;
     return self;
 }
 
+-(Recipe *) recipeObj{
+    Recipe *recipe = [[Recipe new] initWithRecipeReamObj:self];
+    return recipe;
+}
 @end
 
 @implementation Recipe
@@ -45,6 +48,17 @@
     [url appendString: _imageUrl];
     return url;
 }
+
+-(instancetype)initWithRecipeReamObj:(RecipeRealmObject *)recipeRealmObj{
+    _ID = recipeRealmObj.ID;
+    _name = recipeRealmObj.name;
+    _imageUrl = recipeRealmObj.imageUrl;
+    _steps = recipeRealmObj.steps;
+    _keywords = recipeRealmObj.keywords;
+    _foods = recipeRealmObj.foods;
+    return self;
+}
+
 
 @end
 
