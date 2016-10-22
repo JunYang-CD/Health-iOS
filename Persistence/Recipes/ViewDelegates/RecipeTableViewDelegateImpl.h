@@ -12,6 +12,7 @@
 
 @protocol RecipeTableViewDelegateImplDeleate
 
+@optional
 -(void) showRecipeDetail:(Recipe *) recipe;
 -(void) loadMoreRecipe:(NSInteger) pageIndex;
 

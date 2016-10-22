@@ -19,6 +19,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    NSLog(@"fav count %lu", (unsigned long)[self.recipes count]);
     return [self.recipes count];
 }
 

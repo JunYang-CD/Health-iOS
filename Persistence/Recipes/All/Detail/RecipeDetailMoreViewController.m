@@ -21,7 +21,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [super didReceiveMemoryWarning];
+    [self addGestures];
+    
     
 
     // Do any additional setup after loading the view.

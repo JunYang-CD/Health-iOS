@@ -11,6 +11,7 @@
 #import <Realm/RLMObject.h>
 
 @class RecipeRealmObject;
+@class RecipeFavRealmObject;
 
 @interface Recipe : MTLModel<MTLJSONSerializing>
 
@@ -22,19 +23,24 @@
 @property (nonatomic, readonly) NSString* ID;
 
 -(instancetype)initWithRecipeReamObj:(RecipeRealmObject *)recipeRealmObj;
+-(instancetype)initWithRecipeFavReamObj:(RecipeFavRealmObject *)recipeRealmObj;
 
 @end
 
 @interface RecipeRealmObject : RLMObject
-@property (nonatomic, readonly) NSString* name;
-@property (nonatomic, readonly) NSString* imageUrl;
-@property (nonatomic, readonly) NSString* foods;
-@property (nonatomic, readonly) NSString* steps;
-@property (nonatomic, readonly) NSString* keywords;
-@property (nonatomic, readonly) NSString* ID;
+@property (nonatomic) NSString* name;
+@property (nonatomic) NSString* imageUrl;
+@property (nonatomic) NSString* foods;
+@property (nonatomic) NSString* steps;
+@property (nonatomic) NSString* keywords;
+@property (nonatomic) NSString* ID;
 
 -(instancetype) initWithData:(Recipe *) recipe;
 -(Recipe *)recipeObj;
+@end
+
+@interface RecipeFavRealmObject : RecipeRealmObject
+
 @end
 
 

@@ -24,6 +24,7 @@ extern NSString *const RecipeModelRecipeUpdate;
 extern NSString *const RecipeModelRecipeListUpdate;
 extern NSString *const RecipeModelRecipeCategoryUpdate;
 extern NSString *const RecipeModelRecipeSubCategoryUpdate;
+extern NSString *const RecipeModelRecipeFavUpdate;
 
 @protocol PSServer;
 

@@ -12,7 +12,7 @@
 @implementation RecipeRealmObject
 
 -(instancetype)initWithData:(Recipe *)recipe{
-    _ID = recipe.ID;
+    _ID = [(NSNumber*)recipe.ID stringValue];
     _name = recipe.name;
     _foods = recipe.foods;
     _imageUrl = recipe.imageUrl;
@@ -25,6 +25,10 @@
     Recipe *recipe = [[Recipe new] initWithRecipeReamObj:self];
     return recipe;
 }
+@end
+
+@implementation RecipeFavRealmObject
+
 @end
 
 @implementation Recipe
@@ -63,6 +67,17 @@
     _foods = recipeRealmObj.foods;
     return self;
 }
+
+-(instancetype)initWithRecipeFavReamObj:(RecipeFavRealmObject *)recipeRealmObj{
+    _ID = recipeRealmObj.ID;
+    _name = recipeRealmObj.name;
+    _imageUrl = recipeRealmObj.imageUrl;
+    _steps = recipeRealmObj.steps;
+    _keywords = recipeRealmObj.keywords;
+    _foods = recipeRealmObj.foods;
+    return self;
+}
+
 
 
 @end

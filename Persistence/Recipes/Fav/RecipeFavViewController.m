@@ -7,9 +7,13 @@
 //
 
 #import "RecipeFavViewController.h"
+#import "Recipe.h"
+#import "RecipeModel.h"
 
 @interface RecipeFavViewController ()
-@property (weak, nonatomic) IBOutlet UITableView *RecipeFavTableView;
+@property (weak, nonatomic) IBOutlet UITableView *recipeFavTableView;
+@property (nonatomic) NSMutableArray<Recipe *> *recipesFav;
+@property (nonatomic) RecipeTableViewDelegateImpl * recipeTableViewDelegate;
 
 @end
 
@@ -17,6 +21,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self updateViewModel];
+
     // Do any additional setup after loading the view.
 }
 
@@ -25,6 +31,17 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (void) updateViewModel{
+    self.recipesFav = [[NSMutableArray arrayWithArray:[[RecipeModel instance] getPersistentFavRecipes]] copy];
+    self.recipeTableViewDelegate = [[RecipeTableViewDelegateImpl new] initWithData:self.recipesFav pageIndex:0];
+    [self.recipeFavTableView setDataSource: self.recipeTableViewDelegate];
+    [self.recipeFavTableView setDelegate: self.recipeTableViewDelegate];
+    [self.recipeFavTableView reloadData];
+}
+
+-(void) showRecipeDetail:(Recipe *) recipe{
+    
+}
 /*
 #pragma mark - Navigation
 

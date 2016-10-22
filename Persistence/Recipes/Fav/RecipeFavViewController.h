@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "RecipeTableViewDelegateImpl.h"
 
-@interface RecipeFavViewController : UIViewController
+@interface RecipeFavViewController : UIViewController<RecipeTableViewDelegateImplDeleate>
 
 @end

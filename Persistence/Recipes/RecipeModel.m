@@ -17,6 +17,7 @@ NSString *const RecipeModelRecipeUpdate = @"RecipeModelRecipeUpdate";
 NSString *const RecipeModelRecipeListUpdate = @"RecipeModelRecipeListUpdate";
 NSString *const RecipeModelRecipeCategoryUpdate = @"RecipeModelRecipeCategoryUpdate";
 NSString *const RecipeModelRecipeSubCategoryUpdate = @"RecipeModelRecipeSubCategoryUpdate";
+NSString *const RecipeModelRecipeFavUpdate = @"RecipeModelRecipeFavUpdate";
 
 +(instancetype)instance{
     static RecipeModel *_instance = nil;
@@ -149,27 +150,26 @@ NSString *const RecipeModelRecipeSubCategoryUpdate = @"RecipeModelRecipeSubCateg
 
 -(void) persistentRecipe: (Recipe *) recipe{
     RLMRealm *realm = [RLMRealm defaultRealm];
-    [self persistenceRecipe:recipe RLMRealm:realm];
-}
-
--(void) persistentFavRecipe: (Recipe *) recipe{
-    RLMRealm *realm = [RLMRealm realmWithPath:@"fav_recipe"];
-    [self persistenceRecipe:recipe RLMRealm:realm];
-}
-
--(void)persistenceRecipe: (Recipe *)recipe RLMRealm:(RLMRealm *) realm{
     RecipeRealmObject *recipeRO = [[RecipeRealmObject new] initWithData:recipe];
     [realm beginWriteTransaction];
     [realm addObject:recipeRO];
     [realm commitWriteTransaction];
 }
 
+-(void) persistentFavRecipe: (Recipe *) recipe{
+    RLMRealm *realm = [RLMRealm defaultRealm];
+    RecipeFavRealmObject *recipeFavRO = [[RecipeFavRealmObject new] initWithData:recipe];
+    [realm beginWriteTransaction];
+    [realm addObject:recipeFavRO];
+    [realm commitWriteTransaction];
+}
+
+
 -(NSArray<Recipe *> *) getPersistentFavRecipes{
-    RLMRealm *realm = [RLMRealm realmWithPath:@"fav_recipe"];
-    RLMResults<RecipeRealmObject *> *favRecipes = [RecipeRealmObject allObjects];
+    RLMResults<RecipeFavRealmObject *> *favRecipes = [RecipeFavRealmObject allObjects];
     NSMutableArray<Recipe *> *recipes = [NSMutableArray new];
-    for(RecipeRealmObject *recipeRealmObj in favRecipes){
-        [recipes addObject:recipeRealmObj.recipeObj];
+    for(RecipeFavRealmObject *recipeFavRealmObj in favRecipes){
+        [recipes addObject:recipeFavRealmObj.recipeObj];
     }
     return [recipes copy];
 }
