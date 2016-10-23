@@ -79,7 +79,11 @@
         popController.modalPresentationStyle = UIModalPresentationPopover;
         [popController.popoverPresentationController setDelegate:self];
         [popController setRecipe:self.recipe];
-        [popController setIsFav:[[RecipeModel instance]isRecipeFav:[(NSNumber *)_recipe.ID stringValue]]];
+        if([_recipe.ID isKindOfClass:NSNumber.class]){
+            [popController setIsFav:[[RecipeModel instance]isRecipeFav:[(NSNumber *)_recipe.ID stringValue]]];
+        }else{
+            [popController setIsFav:[[RecipeModel instance]isRecipeFav:_recipe.ID]];
+        }
     }
     
     

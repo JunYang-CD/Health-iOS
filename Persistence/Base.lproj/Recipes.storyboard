@@ -215,6 +215,7 @@
                     <navigationItem key="navigationItem" title="Recipes" id="gnU-Bo-vqt"/>
                     <connections>
                         <outlet property="RecipeFavTableView" destination="L7G-qw-z62" id="UNy-5L-MtH"/>
+                        <segue destination="P3O-bM-Zcn" kind="show" identifier="showFavRecipeDetail" id="cjz-Pv-4Sk"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BlA-i6-r0e" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -459,4 +460,7 @@
         <image name="Share" width="300" height="300"/>
         <image name="first" width="30" height="30"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="cjz-Pv-4Sk"/>
+    </inferredMetricsTieBreakers>
 </document>

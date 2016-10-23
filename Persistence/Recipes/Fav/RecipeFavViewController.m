@@ -9,12 +9,14 @@
 #import "RecipeFavViewController.h"
 #import "Recipe.h"
 #import "RecipeModel.h"
+#import "RecipeDetailViewController.h"
 
 @interface RecipeFavViewController ()
 @property (weak, nonatomic) IBOutlet UITableView *recipeFavTableView;
 @property (nonatomic) NSMutableArray<Recipe *> *recipesFav;
 @property (nonatomic) RecipeTableViewDelegateImpl * recipeTableViewDelegate;
 @property (nonatomic) BOOL needUpdateViewModel;
+@property (weak, nonatomic) Recipe *selectedRecipe;
 
 @end
 
@@ -45,12 +47,14 @@
     self.recipeTableViewDelegate = [[RecipeTableViewDelegateImpl new] initWithData:self.recipesFav pageIndex:0];
     [self.recipeFavTableView setDataSource: self.recipeTableViewDelegate];
     [self.recipeFavTableView setDelegate: self.recipeTableViewDelegate];
+    [self.recipeTableViewDelegate setControllerDelegate:self];
     [self.recipeFavTableView reloadData];
     self.needUpdateViewModel = false;
 }
 
 -(void) showRecipeDetail:(Recipe *) recipe{
-    
+    self.selectedRecipe = recipe;
+    [self performSegueWithIdentifier:@"showFavRecipeDetail" sender: self];
 }
 
 -(void) registerObserver{
@@ -60,14 +64,15 @@
 -(void) favRecipesUpdated:(NSNotification *)notification{
     self.needUpdateViewModel = true;
 }
-/*
+
 #pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+    if([[segue identifier] isEqualToString:@"showFavRecipeDetail"]){
+        RecipeDetailViewController *recipeDetailController = [segue destinationViewController];
+        [recipeDetailController setData: self.selectedRecipe];
+    }
 }
-*/
+
 
 @end

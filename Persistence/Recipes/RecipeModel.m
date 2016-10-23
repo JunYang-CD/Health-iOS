@@ -167,7 +167,11 @@ NSString *const RecipeModelRecipeFavUpdate = @"RecipeModelRecipeFavUpdate";
 
 -(void) removeFavRecipe: (Recipe *)recipe{
     RLMRealm *realm = [RLMRealm defaultRealm];
-    RecipeFavRealmObject *recipeFavRO = [self getFavRecipeRealmObject:[(NSNumber *)recipe.ID stringValue]];
+    NSString *recipeID = recipe.ID;
+    if([recipe.ID isKindOfClass:NSNumber.class]){
+        recipeID = [(NSNumber *)recipe.ID stringValue];
+    }
+    RecipeFavRealmObject *recipeFavRO = [self getFavRecipeRealmObject:recipeID];
     if(recipeFavRO){
         [realm beginWriteTransaction];
         [realm deleteObject:recipeFavRO];
