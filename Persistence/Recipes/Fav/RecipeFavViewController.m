@@ -14,6 +14,7 @@
 @property (weak, nonatomic) IBOutlet UITableView *recipeFavTableView;
 @property (nonatomic) NSMutableArray<Recipe *> *recipesFav;
 @property (nonatomic) RecipeTableViewDelegateImpl * recipeTableViewDelegate;
+@property (nonatomic) BOOL needUpdateViewModel;
 
 @end
 
@@ -22,8 +23,16 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self updateViewModel];
+    self.needUpdateViewModel = false;
+    [self registerObserver];
 
     // Do any additional setup after loading the view.
+}
+
+- (void)viewWillAppear:(BOOL)animated{
+    if(self.needUpdateViewModel){
+        [self updateViewModel];
+    }
 }
 
 - (void)didReceiveMemoryWarning {
@@ -37,10 +46,19 @@
     [self.recipeFavTableView setDataSource: self.recipeTableViewDelegate];
     [self.recipeFavTableView setDelegate: self.recipeTableViewDelegate];
     [self.recipeFavTableView reloadData];
+    self.needUpdateViewModel = false;
 }
 
 -(void) showRecipeDetail:(Recipe *) recipe{
     
+}
+
+-(void) registerObserver{
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(favRecipesUpdated:) name:RecipeModelRecipeFavUpdate object:nil];
+}
+
+-(void) favRecipesUpdated:(NSNotification *)notification{
+    self.needUpdateViewModel = true;
 }
 /*
 #pragma mark - Navigation

@@ -28,6 +28,9 @@
 @end
 
 @implementation RecipeFavRealmObject
++(NSString *)primaryKey{
+    return @"ID";
+}
 
 @end
 

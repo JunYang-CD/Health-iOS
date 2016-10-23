@@ -148,7 +148,7 @@ NSString *const RecipeModelRecipeFavUpdate = @"RecipeModelRecipeFavUpdate";
 }
 
 
--(void) persistentRecipe: (Recipe *) recipe{
+-(void) persistentRecipe: (Recipe *)recipe{
     RLMRealm *realm = [RLMRealm defaultRealm];
     RecipeRealmObject *recipeRO = [[RecipeRealmObject new] initWithData:recipe];
     [realm beginWriteTransaction];
@@ -156,12 +156,24 @@ NSString *const RecipeModelRecipeFavUpdate = @"RecipeModelRecipeFavUpdate";
     [realm commitWriteTransaction];
 }
 
--(void) persistentFavRecipe: (Recipe *) recipe{
+-(void) persistentFavRecipe: (Recipe *)recipe{
     RLMRealm *realm = [RLMRealm defaultRealm];
     RecipeFavRealmObject *recipeFavRO = [[RecipeFavRealmObject new] initWithData:recipe];
     [realm beginWriteTransaction];
     [realm addObject:recipeFavRO];
     [realm commitWriteTransaction];
+    [[NSNotificationCenter defaultCenter] postNotificationName:RecipeModelRecipeFavUpdate object:nil];
+}
+
+-(void) removeFavRecipe: (Recipe *)recipe{
+    RLMRealm *realm = [RLMRealm defaultRealm];
+    RecipeFavRealmObject *recipeFavRO = [self getFavRecipeRealmObject:[(NSNumber *)recipe.ID stringValue]];
+    if(recipeFavRO){
+        [realm beginWriteTransaction];
+        [realm deleteObject:recipeFavRO];
+        [realm commitWriteTransaction];
+        [[NSNotificationCenter defaultCenter] postNotificationName:RecipeModelRecipeFavUpdate object:nil];
+    }
 }
 
 
@@ -172,6 +184,24 @@ NSString *const RecipeModelRecipeFavUpdate = @"RecipeModelRecipeFavUpdate";
         [recipes addObject:recipeFavRealmObj.recipeObj];
     }
     return [recipes copy];
+}
+
+-(RecipeFavRealmObject *) getFavRecipeRealmObject:(NSString *)recipeID{
+    NSPredicate *pred = [NSPredicate predicateWithFormat:@"ID = %@", recipeID];
+    RLMResults<RecipeFavRealmObject*> *recipeFavRO = [RecipeFavRealmObject objectsWithPredicate:pred];
+    if([recipeFavRO count] > 0){
+        return [recipeFavRO objectAtIndex:0];
+    }
+    return nil;
+}
+
+-(BOOL)isRecipeFav:(NSString *)recipeID{
+    NSPredicate *pred = [NSPredicate predicateWithFormat:@"ID = %@", recipeID];
+    RLMResults<RecipeFavRealmObject*> *recipeFavRO = [RecipeFavRealmObject objectsWithPredicate:pred];
+    if( [recipeFavRO count] > 0){
+        return true;
+    }
+    return false;
 }
 
 @end

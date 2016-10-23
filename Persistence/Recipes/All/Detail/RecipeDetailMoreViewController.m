@@ -22,10 +22,12 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self addGestures];
-    
-    
 
     // Do any additional setup after loading the view.
+}
+
+- (void)viewWillAppear:(BOOL)animated{
+    [self updateMenuItems];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -33,20 +35,36 @@
 }
 
 -(void) addGestures{
-    UITapGestureRecognizer *addFavGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(addFavRecipe)];
+    UITapGestureRecognizer *updateFavGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(updateFavRecipe)];
     UITapGestureRecognizer *shareRecipeGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(shareRecipe)];
     
-    [self.addIconVIew addGestureRecognizer:addFavGesture];
-    [self.addTextView addGestureRecognizer:addFavGesture];
+    [self.addIconVIew addGestureRecognizer:updateFavGesture];
+    [self.addTextView addGestureRecognizer:updateFavGesture];
     [self.shareIconView addGestureRecognizer:shareRecipeGesture];
     [self.shareIconView addGestureRecognizer:shareRecipeGesture];
 
 }
 
--(void) addFavRecipe{
+-(void) updateMenuItems{
+    if(self.isFav){
+        [self.addTextView setText:@"Remove Fav"];
+        [self.addIconVIew setImage:[UIImage imageNamed:@"Dash"]];
+    }else{
+        [self.addTextView setText:@"Add as Fav"];
+        [self.addIconVIew setImage:[UIImage imageNamed:@"Add"]];
+    }
+
+}
+
+-(void) updateFavRecipe{
     NSLog(@"add fav recipe");
-    [[RecipeModel instance] persistentFavRecipe:self.recipe];
-    
+    if(self.isFav){
+        [[RecipeModel instance] removeFavRecipe:self.recipe];
+    }else{
+        [[RecipeModel instance] persistentFavRecipe:self.recipe];
+    }
+    self.isFav = !self.isFav;
+    [self dismissViewControllerAnimated:true completion:nil];
 }
 
 -(void) shareRecipe{

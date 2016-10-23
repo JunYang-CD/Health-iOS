@@ -17,6 +17,7 @@
 @property (weak, nonatomic) IBOutlet UIImageView *recipeImageView;
 @property (weak, nonatomic) IBOutlet UIWebView *recipeWebView;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *recipeDetailLoadIndicator;
+@property (nonatomic) BOOL isRecipeFav;
 
 @end
 
@@ -34,7 +35,6 @@
                                     target:self
                                     action:@selector(moreActionTriggered)];
     self.navigationItem.rightBarButtonItem = topRightbtn;
-    
 }
 
 
@@ -79,6 +79,7 @@
         popController.modalPresentationStyle = UIModalPresentationPopover;
         [popController.popoverPresentationController setDelegate:self];
         [popController setRecipe:self.recipe];
+        [popController setIsFav:[[RecipeModel instance]isRecipeFav:[(NSNumber *)_recipe.ID stringValue]]];
     }
     
     

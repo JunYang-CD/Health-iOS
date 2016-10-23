@@ -47,6 +47,8 @@ extern NSString *const RecipeModelRecipeFavUpdate;
 
 -(void) persistentFavRecipe: (Recipe *)recipe;
 -(NSArray<Recipe *> *) getPersistentFavRecipes;
+-(void) removeFavRecipe: (Recipe *)recipe;
+-(BOOL) isRecipeFav: (NSString *)recipeID;
 
 
 @end

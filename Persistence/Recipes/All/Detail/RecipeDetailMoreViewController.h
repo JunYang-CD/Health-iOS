@@ -11,4 +11,5 @@
 
 @interface RecipeDetailMoreViewController : UIViewController
 @property (weak, nonatomic) Recipe *recipe;
+@property (nonatomic) BOOL isFav;
 @end
