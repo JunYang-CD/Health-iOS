@@ -23,17 +23,20 @@ PODS:
   - SDWebImage (3.7.5):
     - SDWebImage/Core (= 3.7.5)
   - SDWebImage/Core (3.7.5)
+  - Toast (3.0)
 
 DEPENDENCIES:
   - AFNetworking (~> 3.0)
   - Mantle (~> 1.5.4)
   - Realm
   - SDWebImage (~> 3.7)
+  - Toast (~> 3.0)
 
 SPEC CHECKSUMS:
   AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
   Mantle: 4af47cf9547a4d0ad145a48cd0be3b411a5ae2b8
   Realm: 44803f35418c5d89b27825a564247fcd190de37e
   SDWebImage: 69c6303e3348fba97e03f65d65d4fbc26740f461
+  Toast: 32c59229abfcf41850162b83bb9259dc84372473
 
 COCOAPODS: 0.39.0
