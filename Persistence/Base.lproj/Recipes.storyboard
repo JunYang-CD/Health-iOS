@@ -175,10 +175,30 @@
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="iDh-GO-dH5">
                                         <rect key="frame" x="0.0" y="10" width="560" height="30"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits"/>
+                                        <textInputTraits key="textInputTraits" returnKeyType="done"/>
+                                        <connections>
+                                            <action selector="recipeSeachTextChanged:" destination="Pr3-gn-KAA" eventType="editingChanged" id="UIy-n3-htJ"/>
+                                        </connections>
                                     </textField>
-                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="L7G-qw-z62">
-                                        <rect key="frame" x="0.0" y="60" width="560" height="427"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ODa-ym-jgf">
+                                        <rect key="frame" x="530" y="10" width="30" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="ODa-ym-jgf" secondAttribute="height" multiplier="1:1" id="5gl-Mp-jii"/>
+                                            <constraint firstAttribute="height" constant="30" id="Nfa-Op-KEd"/>
+                                            <constraint firstAttribute="width" constant="30" id="i2h-r7-EAg"/>
+                                        </constraints>
+                                        <state key="normal" title="Button" image="Cross"/>
+                                        <variation key="default">
+                                            <mask key="constraints">
+                                                <exclude reference="5gl-Mp-jii"/>
+                                            </mask>
+                                        </variation>
+                                        <connections>
+                                            <action selector="clearRecipeClearTextField:" destination="Pr3-gn-KAA" eventType="touchUpInside" id="Cnn-HU-qfL"/>
+                                        </connections>
+                                    </button>
+                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="L7G-qw-z62">
+                                        <rect key="frame" x="0.0" y="70" width="560" height="417"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     </tableView>
                                 </subviews>
@@ -186,9 +206,11 @@
                                 <constraints>
                                     <constraint firstAttribute="bottom" secondItem="L7G-qw-z62" secondAttribute="bottom" id="3uc-0I-BTg"/>
                                     <constraint firstAttribute="trailing" secondItem="L7G-qw-z62" secondAttribute="trailing" id="MDq-aa-9sq"/>
+                                    <constraint firstItem="ODa-ym-jgf" firstAttribute="trailing" secondItem="iDh-GO-dH5" secondAttribute="trailing" id="aOr-bF-lIY"/>
                                     <constraint firstItem="L7G-qw-z62" firstAttribute="leading" secondItem="sLa-Eq-DbN" secondAttribute="leading" id="bvD-TF-7dk"/>
                                     <constraint firstItem="iDh-GO-dH5" firstAttribute="top" secondItem="sLa-Eq-DbN" secondAttribute="top" constant="10" id="g0B-xK-mGE"/>
                                     <constraint firstItem="L7G-qw-z62" firstAttribute="top" secondItem="iDh-GO-dH5" secondAttribute="bottom" constant="20" id="jVr-JQ-s3x"/>
+                                    <constraint firstItem="ODa-ym-jgf" firstAttribute="centerY" secondItem="iDh-GO-dH5" secondAttribute="centerY" id="n9L-MS-Npr"/>
                                     <constraint firstItem="iDh-GO-dH5" firstAttribute="leading" secondItem="sLa-Eq-DbN" secondAttribute="leading" id="ycu-dq-5F8"/>
                                     <constraint firstAttribute="trailing" secondItem="iDh-GO-dH5" secondAttribute="trailing" id="zPG-Y0-YVU"/>
                                 </constraints>
@@ -215,6 +237,8 @@
                     <navigationItem key="navigationItem" title="Recipes" id="gnU-Bo-vqt"/>
                     <connections>
                         <outlet property="RecipeFavTableView" destination="L7G-qw-z62" id="UNy-5L-MtH"/>
+                        <outlet property="recipeFavSearchTextField" destination="iDh-GO-dH5" id="TDY-ad-BXH"/>
+                        <outlet property="recipeSearchTextFieldClearBtn" destination="ODa-ym-jgf" id="pJU-GQ-DUy"/>
                         <segue destination="P3O-bM-Zcn" kind="show" identifier="showFavRecipeDetail" id="cjz-Pv-4Sk"/>
                     </connections>
                 </viewController>
@@ -457,7 +481,8 @@
     </scenes>
     <resources>
         <image name="Add" width="512" height="512"/>
-        <image name="All" width="25" height="25"/>
+        <image name="All" width="50" height="50"/>
+        <image name="Cross" width="2400" height="2400"/>
         <image name="Share" width="300" height="300"/>
     </resources>
     <inferredMetricsTieBreakers>

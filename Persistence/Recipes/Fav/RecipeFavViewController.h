@@ -9,6 +9,6 @@
 #import <UIKit/UIKit.h>
 #import "RecipeTableViewDelegateImpl.h"
 
-@interface RecipeFavViewController : UIViewController<RecipeTableViewDelegateImplDeleate>
+@interface RecipeFavViewController : UIViewController<RecipeTableViewDelegateImplDeleate, UITextFieldDelegate>
 
 @end

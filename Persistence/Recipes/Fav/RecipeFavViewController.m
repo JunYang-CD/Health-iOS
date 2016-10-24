@@ -14,9 +14,12 @@
 @interface RecipeFavViewController ()
 @property (weak, nonatomic) IBOutlet UITableView *recipeFavTableView;
 @property (nonatomic) NSMutableArray<Recipe *> *recipesFav;
+@property (nonatomic) NSArray<Recipe *> *recipesFavViewModel;
 @property (nonatomic) RecipeTableViewDelegateImpl * recipeTableViewDelegate;
 @property (nonatomic) BOOL needUpdateViewModel;
 @property (weak, nonatomic) Recipe *selectedRecipe;
+@property (weak, nonatomic) IBOutlet UITextField *recipeFavSearchTextField;
+@property (weak, nonatomic) IBOutlet UIButton *recipeSearchTextFieldClearBtn;
 
 @end
 
@@ -27,7 +30,7 @@
     [self updateViewModel];
     self.needUpdateViewModel = false;
     [self registerObserver];
-
+    [self.recipeFavSearchTextField setDelegate:self];
     // Do any additional setup after loading the view.
 }
 
@@ -43,8 +46,22 @@
 }
 
 - (void) updateViewModel{
-    self.recipesFav = [[NSMutableArray arrayWithArray:[[RecipeModel instance] getPersistentFavRecipes]] copy];
-    self.recipeTableViewDelegate = [[RecipeTableViewDelegateImpl new] initWithData:self.recipesFav pageIndex:0];
+    if(![self.recipeFavSearchTextField.text isEqualToString:@""]){
+        self.recipeSearchTextFieldClearBtn.hidden = false;
+        NSMutableArray<Recipe *> *filteredFavRecipes = [NSMutableArray new];
+        for(Recipe *recipe in self.recipesFav){
+            if([recipe.name containsString:self.recipeFavSearchTextField.text]){
+                [filteredFavRecipes addObject:recipe];
+            }
+        }
+        self.recipesFavViewModel = [filteredFavRecipes copy];
+
+    }else{
+        self.recipeSearchTextFieldClearBtn.hidden = true;
+        self.recipesFav = [[NSMutableArray arrayWithArray:[[RecipeModel instance] getPersistentFavRecipes]] copy];
+        self.recipesFavViewModel = self.recipesFav;
+    }
+    self.recipeTableViewDelegate = [[RecipeTableViewDelegateImpl new] initWithData:self.recipesFavViewModel pageIndex:0];
     [self.recipeFavTableView setDataSource: self.recipeTableViewDelegate];
     [self.recipeFavTableView setDelegate: self.recipeTableViewDelegate];
     [self.recipeTableViewDelegate setControllerDelegate:self];
@@ -63,6 +80,18 @@
 
 -(void) favRecipesUpdated:(NSNotification *)notification{
     self.needUpdateViewModel = true;
+}
+
+- (IBAction)recipeSeachTextChanged:(UITextField *)sender {
+    [self updateViewModel];
+}
+-(BOOL)textFieldShouldReturn:(UITextField *)textField{
+    [self.recipeFavSearchTextField endEditing:true];
+    return true;
+}
+- (IBAction)clearRecipeClearTextField:(UIButton *)sender {
+    [self.recipeFavSearchTextField setText:nil];
+    [self updateViewModel];
 }
 
 #pragma mark - Navigation
