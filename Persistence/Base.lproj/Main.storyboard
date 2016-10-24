@@ -9,7 +9,7 @@
         <scene sceneID="OaE-DI-kRh">
             <objects>
                 <viewControllerPlaceholder storyboardName="Recipes" referencedIdentifier="RecipeFavViewController" id="gfM-qE-1dg" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Favorate" image="first" id="s2N-Xu-waV" userLabel="FavRecipes"/>
+                    <tabBarItem key="tabBarItem" title="Favorate" image="Fav" id="s2N-Xu-waV" userLabel="FavRecipes"/>
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SYV-Hu-ntj" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -48,6 +48,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="Fav" width="150" height="150"/>
         <image name="first" width="30" height="30"/>
     </resources>
 </document>

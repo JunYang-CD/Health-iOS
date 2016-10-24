@@ -142,7 +142,7 @@
         <scene sceneID="axa-Si-gVE">
             <objects>
                 <navigationController storyboardIdentifier="RecipeFavViewController" title="RecipeFavNavController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="KB9-Cp-XaX" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Favorate" image="first" id="CdZ-c9-BDx" userLabel="RecipeFav"/>
+                    <tabBarItem key="tabBarItem" systemItem="favorites" id="CdZ-c9-BDx" userLabel="RecipeFav"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="adM-Xw-93C">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -435,7 +435,7 @@
         <scene sceneID="hL2-jI-gGu">
             <objects>
                 <navigationController storyboardIdentifier="recipeAllViewController" title="RecipeAllNavController" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Mo5-Lw-uoX" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="All" image="first" id="z00-A3-MX2"/>
+                    <tabBarItem key="tabBarItem" title="All" image="All" id="z00-A3-MX2"/>
                     <toolbarItems/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics">
                         <color key="barTintColor" red="0.0" green="0.49019607840000001" blue="0.72941176470000002" alpha="1" colorSpace="calibratedRGB"/>
@@ -457,8 +457,8 @@
     </scenes>
     <resources>
         <image name="Add" width="512" height="512"/>
+        <image name="All" width="25" height="25"/>
         <image name="Share" width="300" height="300"/>
-        <image name="first" width="30" height="30"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="cjz-Pv-4Sk"/>
