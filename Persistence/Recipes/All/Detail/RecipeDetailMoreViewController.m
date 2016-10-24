@@ -8,6 +8,7 @@
 
 #import "RecipeDetailMoreViewController.h"
 #import "RecipeModel.h"
+#import "UIView+Toast.h"
 
 @interface RecipeDetailMoreViewController ()
 @property (weak, nonatomic) IBOutlet UIImageView *addIconVIew;
@@ -22,7 +23,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self addGestures];
-
     // Do any additional setup after loading the view.
 }
 
@@ -42,7 +42,6 @@
     [self.addTextView addGestureRecognizer:updateFavGesture];
     [self.shareIconView addGestureRecognizer:shareRecipeGesture];
     [self.shareIconView addGestureRecognizer:shareRecipeGesture];
-
 }
 
 -(void) updateMenuItems{
@@ -53,15 +52,20 @@
         [self.addTextView setText:@"Add as Fav"];
         [self.addIconVIew setImage:[UIImage imageNamed:@"Add"]];
     }
-
 }
 
 -(void) updateFavRecipe{
     NSLog(@"add fav recipe");
     if(self.isFav){
         [[RecipeModel instance] removeFavRecipe:self.recipe];
+        if(self.toastDelegate){
+            [self.toastDelegate showToast: @"Remove from favorate list successfully."  duration:2.0 position:CSToastPositionCenter];
+        }
     }else{
         [[RecipeModel instance] persistentFavRecipe:self.recipe];
+        if(self.toastDelegate){
+            [self.toastDelegate showToast: @"Add to favorate list successfully." duration:2.0 position:CSToastPositionCenter];
+        }
     }
     self.isFav = !self.isFav;
     [self dismissViewControllerAnimated:true completion:nil];
@@ -72,13 +76,13 @@
 }
 
 /*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
+ #pragma mark - Navigation
+ 
+ // In a storyboard-based application, you will often want to do a little preparation before navigation
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+ // Get the new view controller using [segue destinationViewController].
+ // Pass the selected object to the new view controller.
+ }
+ */
 
 @end

@@ -9,7 +9,7 @@
 #import "RecipeDetailViewController.h"
 #import <SDWebImage/UIImageView+WebCache.h>
 #import "RecipeModel.h"
-#import "RecipeDetailMoreViewController.h"
+#import "UIView+Toast.h"
 
 @interface RecipeDetailViewController ()
 
@@ -65,6 +65,10 @@
     [self.recipeDetailLoadIndicator stopAnimating];
 }
 
+-(void)showToast:(NSString *)message duration:(NSTimeInterval)duration position:(id)position{
+    [self.view makeToast:message duration:duration position:position];
+}
+
 
 #pragma mark - Navigation
 
@@ -79,6 +83,7 @@
         popController.modalPresentationStyle = UIModalPresentationPopover;
         [popController.popoverPresentationController setDelegate:self];
         [popController setRecipe:self.recipe];
+        [popController setToastDelegate:self];
         if([_recipe.ID isKindOfClass:NSNumber.class]){
             [popController setIsFav:[[RecipeModel instance]isRecipeFav:[(NSNumber *)_recipe.ID stringValue]]];
         }else{
