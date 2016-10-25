@@ -26,9 +26,9 @@
     [super setSelected:selected animated:animated];
     
     // Configure the view for the selected state
-    if(selected){
-        self.category.checked = !self.category.checked;
-    }
+//    if(selected){
+//        self.category.checked = !self.category.checked;
+//    }
     _checkImage.hidden = !_category.checked;
 }
 

@@ -130,13 +130,14 @@
             self.emptyRecipeNoteLabel.hidden = false;
             _recipeTable.hidden = true;
         }
+        
+        
+        self.recipeTableViewDelegateImpl = [[RecipeTableViewDelegateImpl new] initWithData: self.recipes pageIndex:self.pageIndex];
+        [self.recipeTableViewDelegateImpl setAutoLoadMore:true];
+        [self.recipeTableViewDelegateImpl setControllerDelegate:self];
+        [self.recipeTable setDelegate: self.recipeTableViewDelegateImpl];
+        [self.recipeTable setDataSource: self.recipeTableViewDelegateImpl];
     }
-    
-    self.recipeTableViewDelegateImpl = [[RecipeTableViewDelegateImpl new] initWithData: self.recipes pageIndex:self.pageIndex];
-    [self.recipeTableViewDelegateImpl setAutoLoadMore:true];
-    [self.recipeTableViewDelegateImpl setControllerDelegate:self];
-    [self.recipeTable setDelegate: self.recipeTableViewDelegateImpl];
-    [self.recipeTable setDataSource: self.recipeTableViewDelegateImpl];
 }
 
 -(void)loadMoreRecipe:(NSInteger)pageIndex{
@@ -237,9 +238,9 @@
 -(void)cancleEditSelectedCategory:(UITapGestureRecognizer*) tapGesture{
     if(self.editSelectedCategories){
         self.editSelectedCategories = false;
+        [self initViewModel];
         [self updateSelectedCategoryStackView];
         [self updateRecipeCategoryTopMargin];
-        [self initViewModel];
     }
 }
 

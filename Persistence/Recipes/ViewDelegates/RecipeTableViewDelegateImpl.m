@@ -13,7 +13,7 @@
 
 -(instancetype)initWithData:(NSArray<Recipe *> *)recipes pageIndex:(NSInteger)pageIndex{
     self.autoLoadMore = false;
-    self.recipes = recipes;
+    self.recipes = [recipes copy];
     self.pageIndex = pageIndex;
     return self;
 }
@@ -25,6 +25,8 @@
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    NSLog(@"fav count %lu", (unsigned long)[self.recipes count]);
+    
     RecipeCellView *cell = [tableView dequeueReusableCellWithIdentifier:@"recipeCell"];
     if(cell == nil){
         [tableView registerNib:[UINib nibWithNibName:@"RecipeItem" bundle:nil] forCellReuseIdentifier:@"recipeCell"];
@@ -34,6 +36,7 @@
     Recipe* recipe = [self.recipes objectAtIndex:indexPath.row];
     RecipeCellViewModel *recipeCellViewModel = [[RecipeCellViewModel recipeCellViewModelWithNameImage:[NSString stringWithFormat:@"%@", recipe.name] imageUrl:recipe.imageUrl] initWithFoods:recipe.foods];
     [cell setData:recipeCellViewModel];
+    
     
     return cell;
 }
@@ -49,7 +52,7 @@
         if(self.controllerDelegate){
             [self.controllerDelegate showRecipeDetail: selectedRecipe];
         }
-//        [self performSegueWithIdentifier:@"showRecipeDetail" sender:self];
+        //        [self performSegueWithIdentifier:@"showRecipeDetail" sender:self];
     }
 }
 
@@ -60,7 +63,7 @@
         if(self.controllerDelegate){
             [self.controllerDelegate loadMoreRecipe:self.pageIndex + 1];
         }
-//        [self.controllerDelegate requestRecipes];
+        //        [self.controllerDelegate requestRecipes];
     }
     
 }
